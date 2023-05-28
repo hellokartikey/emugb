@@ -1,4 +1,6 @@
-target_sources(
-    ${PROJECT_NAME}
-    PRIVATE cpu.cxx
+add_library(
+  cpu
+  cpu.cxx
+  memory.cxx
+  common.cxx
 )

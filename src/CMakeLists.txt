@@ -1,15 +1,11 @@
 target_sources(
-    ${PROJECT_NAME}
-    PRIVATE main.cxx
-    PRIVATE common.cxx
+  ${BUILD_TARGET}
+  PRIVATE main.cxx
 )
 
-target_include_directories(
-    ${PROJECT_NAME}
-    PRIVATE .
-    PRIVATE cpu
-    PRIVATE memory
+target_link_libraries(
+  ${BUILD_TARGET}
+  PUBLIC cpu
 )
 
 add_subdirectory(cpu)
-add_subdirectory(memory)

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 
 #include "common.hxx"
@@ -33,6 +35,8 @@ class Memory {
     // 64 KB memory
     std::array<byte, 0xffff> memory;
 
+public:
+    Memory();
     byte read(word addr);
     void write(word addr, byte data);
 };
