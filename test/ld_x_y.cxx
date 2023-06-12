@@ -1,21 +1,25 @@
 #include <gtest/gtest.h>
 
 #include "cpu/cpu.hxx"
+#include "cpu/memory.hxx"
 
-class LD_X_Y : public testing::Test {
+class LD_R8_R8 : public testing::Test {
 protected:
-    Memory memory;
-    CPU cpu;
+    gb::Bus bus;
+    gb::Memory memory;
+    gb::CPU cpu;
 
-    LD_X_Y() : cpu(memory) {}
+    LD_R8_R8() : memory(bus), cpu(bus, memory) {}
 };
 
-TEST_F(LD_X_Y, LD_A_A) {
+TEST_F(LD_R8_R8, LD_A_A) {
     /** start - inline program */
-    memory.write(0x0000, LD_B_D8);
-    memory.write(0x0001, 0x64);
-    memory.write(0x0002, LD_A_B);
-    memory.write(0x0003, HALT);
+    gb::program prog = {
+        gb::LD_B_D8, 0x64,
+        gb::LD_A_B,
+        gb::HALT
+    };
+    memory.load_program(prog);
     /** end - inline program */
 
     cpu.execute();

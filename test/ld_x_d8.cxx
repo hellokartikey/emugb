@@ -1,20 +1,27 @@
 #include <gtest/gtest.h>
 
 #include "cpu/cpu.hxx"
+#include "cpu/memory.hxx"
 
-class LD_X_D8 : public testing::Test {
+#include <array>
+
+class LD_R8_D8 : public testing::Test {
 protected:
-    Memory memory;
-    CPU cpu;
+    gb::Bus bus;
+    gb::Memory memory;
+    gb::CPU cpu;
 
-    LD_X_D8() : cpu(memory) {}
+    LD_R8_D8() : memory(bus), cpu(bus, memory) {}
 };
 
-TEST_F(LD_X_D8, LD_B_D8) {
+TEST_F(LD_R8_D8, LD_B_D8) {
     /** start - inline program */
-    memory.write(0x0000, LD_B_D8);
-    memory.write(0x0001, 0x64);
-    memory.write(0x0002, HALT);
+    constexpr gb::word size = 0x0003;
+    gb::program prog = {
+        gb::LD_B_D8, 0x64,
+        gb::HALT
+    };
+    memory.load_program(prog);
     /** end - inline program */
 
     cpu.execute();
@@ -29,11 +36,14 @@ TEST_F(LD_X_D8, LD_B_D8) {
     EXPECT_EQ(cpu.PC, 0x0003);
 }
 
-TEST_F(LD_X_D8, LD_C_D8) {
+TEST_F(LD_R8_D8, LD_C_D8) {
     /** start - inline program */
-    memory.write(0x0000, LD_C_D8);
-    memory.write(0x0001, 0x64);
-    memory.write(0x0002, HALT);
+    constexpr gb::word size = 0x0003;
+    gb::program prog = {
+        gb::LD_C_D8, 0x64,
+        gb::HALT
+    };
+    memory.load_program(prog);
     /** end - inline program */
 
     cpu.execute();
@@ -48,11 +58,14 @@ TEST_F(LD_X_D8, LD_C_D8) {
     EXPECT_EQ(cpu.PC, 0x0003);
 }
 
-TEST_F(LD_X_D8, LD_D_D8) {
+TEST_F(LD_R8_D8, LD_D_D8) {
     /** start - inline program */
-    memory.write(0x0000, LD_D_D8);
-    memory.write(0x0001, 0x64);
-    memory.write(0x0002, HALT);
+    constexpr gb::word size = 0x0003;
+    gb::program prog = {
+        gb::LD_D_D8, 0x64,
+        gb::HALT
+    };
+    memory.load_program(prog);
     /** end - inline program */
 
     cpu.execute();
@@ -67,11 +80,14 @@ TEST_F(LD_X_D8, LD_D_D8) {
     EXPECT_EQ(cpu.PC, 0x0003);
 }
 
-TEST_F(LD_X_D8, LD_E_D8) {
+TEST_F(LD_R8_D8, LD_E_D8) {
     /** start - inline program */
-    memory.write(0x0000, LD_E_D8);
-    memory.write(0x0001, 0x64);
-    memory.write(0x0002, HALT);
+    constexpr gb::word size = 0x0003;
+    gb::program prog = {
+        gb::LD_E_D8, 0x64,
+        gb::HALT
+    };
+    memory.load_program(prog);
     /** end - inline program */
 
     cpu.execute();

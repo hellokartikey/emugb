@@ -1,18 +1,22 @@
 #include <iostream>
 
 #include "cpu/cpu.hxx"
+#include "cpu/bus.hxx"
 #include "cpu/memory.hxx"
 
 int main() {
     std::cout << "Hello World!\n";
 
-    Memory memory;
-    CPU cpu(memory);
+    gb::Bus bus;
+    gb::Memory memory(bus);
+    gb::CPU cpu(bus, memory);
 
     /** start - inline program */
-    memory.write(0x0002, LD_D_D8);  // LD C
-    memory.write(0x0003, 0x0A);     // 10d
-    memory.write(0x0004, HALT);     // HALT
+    gb::program program = {
+        gb::LD_D_D8, 0x0A,
+        gb::HALT
+    };
+    memory.load_program(program);
     /** end - inline program */
 
     cpu.execute();

@@ -1,16 +1,26 @@
 #include "memory.hxx"
 
-Memory::Memory() {
+gb::Memory::Memory(Bus& bus) : bus(bus) {
     memory = {0};
 }
 
-byte Memory::read(word addr) {
-    if (addr < 0x0000 && addr > 0xffff) {
-        return 0;
+void gb::Memory::read_bus() {
+    word addr = bus.read_addr();
+
+    if (bus.read_signal()) {
+        bus.write_data(memory[addr]);
+        return;
     }
-    return memory[addr];
+
+    memory[addr] = bus.read_data();
 }
 
-void Memory::write(word addr, byte data) {
-    memory[addr] = data;
+void gb::Memory::load_program(gb::program program, word start) {
+    bus.set_write();
+    for (auto& opcode: program) {
+        bus.write_addr(start++);
+        bus.write_data(opcode);
+        read_bus();
+    }
+    bus.set_read();
 }
