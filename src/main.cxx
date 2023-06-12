@@ -12,11 +12,11 @@ int main() {
     gb::CPU cpu(bus, memory);
 
     /** start - inline program */
-    gb::program program = {
+    gb::memory program = {
         gb::LD_D_D8, 0x0A,
         gb::HALT
     };
-    memory.load_program(program);
+    memory.load_memory(program);
     /** end - inline program */
 
     cpu.execute();

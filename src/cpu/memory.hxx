@@ -43,7 +43,7 @@ namespace gb {
         Memory(Bus& bus);
 
         void read_bus();
-        void load_program(gb::program prog, word start = 0x0000);
+        void load_memory(gb::memory prog);
 
         /** why constexpr function cannot be defined in cxx file? 😭 */
         constexpr static word size() { return 0xFFFF; }

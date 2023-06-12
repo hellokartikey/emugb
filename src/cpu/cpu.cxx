@@ -15,8 +15,8 @@ void gb::CPU::read_memory(word addr) {
     bus.set_read();
     bus.write_addr(addr);
     memory.read_bus();
-    cycles++;
     IR = bus.read_data();
+    cycles++;
 }
 
 void gb::CPU::write_memory(word addr, byte data) {
@@ -24,8 +24,8 @@ void gb::CPU::write_memory(word addr, byte data) {
     bus.write_addr(addr);
     bus.write_data(data);
     memory.read_bus();
-    cycles++;
     bus.set_read();
+    cycles++;
 }
 
 void gb::CPU::fetch() {

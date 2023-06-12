@@ -17,11 +17,11 @@ protected:
 TEST_F(LD_R8_D8, LD_B_D8) {
     /** start - inline program */
     constexpr gb::word size = 0x0003;
-    gb::program prog = {
+    gb::memory program = {
         gb::LD_B_D8, 0x64,
         gb::HALT
     };
-    memory.load_program(prog);
+    memory.load_memory(program);
     /** end - inline program */
 
     cpu.execute();
@@ -39,11 +39,11 @@ TEST_F(LD_R8_D8, LD_B_D8) {
 TEST_F(LD_R8_D8, LD_C_D8) {
     /** start - inline program */
     constexpr gb::word size = 0x0003;
-    gb::program prog = {
+    gb::memory program = {
         gb::LD_C_D8, 0x64,
         gb::HALT
     };
-    memory.load_program(prog);
+    memory.load_memory(program);
     /** end - inline program */
 
     cpu.execute();
@@ -61,11 +61,11 @@ TEST_F(LD_R8_D8, LD_C_D8) {
 TEST_F(LD_R8_D8, LD_D_D8) {
     /** start - inline program */
     constexpr gb::word size = 0x0003;
-    gb::program prog = {
+    gb::memory program = {
         gb::LD_D_D8, 0x64,
         gb::HALT
     };
-    memory.load_program(prog);
+    memory.load_memory(program);
     /** end - inline program */
 
     cpu.execute();
@@ -83,11 +83,11 @@ TEST_F(LD_R8_D8, LD_D_D8) {
 TEST_F(LD_R8_D8, LD_E_D8) {
     /** start - inline program */
     constexpr gb::word size = 0x0003;
-    gb::program prog = {
+    gb::memory program = {
         gb::LD_E_D8, 0x64,
         gb::HALT
     };
-    memory.load_program(prog);
+    memory.load_memory(program);
     /** end - inline program */
 
     cpu.execute();

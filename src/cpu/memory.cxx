@@ -15,12 +15,6 @@ void gb::Memory::read_bus() {
     memory[addr] = bus.read_data();
 }
 
-void gb::Memory::load_program(gb::program program, word start) {
-    bus.set_write();
-    for (auto& opcode: program) {
-        bus.write_addr(start++);
-        bus.write_data(opcode);
-        read_bus();
-    }
-    bus.set_read();
+void gb::Memory::load_memory(gb::memory memory) {
+    this->memory = memory;
 }

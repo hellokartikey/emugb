@@ -42,6 +42,16 @@ TEST_F(MemoryTest, ReadWriteTest) {
 }
 
 TEST_F(MemoryTest, LoadProgramTest) {
-    gb::program program = {};
+    gb::memory program;
+    for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
+        program[addr] = (std::rand() % 0xFF);
+    }
+    memory.load_memory(program);
 
+    bus.set_read();
+    for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
+        bus.write_addr(addr);
+        memory.read_bus();
+        EXPECT_EQ(bus.read_data(), program[addr]);
+    }
 }
