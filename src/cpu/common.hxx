@@ -16,6 +16,11 @@ namespace gb {
      * D8   :   8 Bit Data
      * D16  :   16 Bit Data
      * A16  :   16 Bit Address
+     * 
+     * NZ   :   Not Zero
+     * Z    :   Zero
+     * NC   :   No Carry
+     * C    :   Carry
      */
     const byte
     LD_B_D8 = 0x06, LD_C_D8 = 0x0E,
@@ -27,45 +32,34 @@ namespace gb {
     LD_A_E = 0x7B, LD_A_H  = 0x7C,
     LD_A_L = 0x7D, LD_A_HL = 0X7E,
 
-    NOP    = 0x00,
-    STOP   = 0x10,
-    HALT   = 0x76,
-    PREFIX = 0xCB,
-    DI     = 0xF3,
-    EI     = 0xFB,
+    LD_BC_D16   = 0x01, LD_DE_D16 = 0x11, LD_HL_D16 = 0x21,
+    LD_A16_SP   = 0x08, LD_SP_D16 = 0x31, LD_SP_HL  = 0xF9,
+    LD_HL_SP_R8 = 0xF8,
 
-    JR_R8     = 0x18,
-    JR_NZ_R8  = 0x20,
-    JR_Z_R8   = 0x28,
-    JR_NC_R8  = 0x30,
-    JR_C_R8   = 0x38,
-    JP_NZ_A16 = 0xC2,
-    JP_A16    = 0xC3,
-    JP_Z_A16  = 0xCA,
-    JP_NC_A16 = 0xD2,
-    JP_C_A16  = 0xDA,
+    POP_AF  = 0xF1, POP_BC  = 0xC1, POP_DE  = 0xD1, POP_HL  = 0xE1,
+    PUSH_AF = 0xF5, PUSH_BC = 0xC5, PUSH_DE = 0xD5, PUSH_HL = 0xE5,
+
+    NOP    = 0x00, STOP = 0x10, HALT = 0x76, 
+    PREFIX = 0xCB, DI   = 0xF3, EI   = 0xFB,
+
+    JR_NZ_R8  = 0x20, JR_Z_R8  = 0x28,
+    JR_NC_R8  = 0x30, JR_C_R8  = 0x38,
+    JP_NZ_A16 = 0xC2, JP_Z_A16 = 0xCA,
+    JR_R8     = 0x18, JP_A16   = 0xC3,
+    JP_NC_A16 = 0xD2, JP_C_A16 = 0xDA,
     JP_HL     = 0xE9,
 
-    CALL_NZ_A16 = 0xC4,
-    CALL_Z_A16  = 0xCC,
+    CALL_NZ_A16 = 0xC4, CALL_Z_A16 = 0xCC,
+    CALL_NC_A16 = 0xD4, CALL_C_A16 = 0xDC,
     CALL_A16    = 0xCD,
-    CALL_NC_A16 = 0xD4,
-    CALL_C_A16  = 0xDC,
 
-    RET_NZ = 0xC0,
-    RET_Z  = 0xC8,
-    RET    = 0xC9,
-    RET_NC = 0xD0,
-    RET_C  = 0xD8,
-    RETI   = 0xD9,
+    RET_NZ = 0xC0, RET_Z = 0xC8,
+    RET_NC = 0xD0, RET_C = 0xD8,
+    RET    = 0xC9, RETI  = 0xD9,
 
-    RST_00 = 0xC7,
-    RST_08 = 0xCF,
-    RST_10 = 0xD7,
-    RST_18 = 0xDF,
-    RST_20 = 0xE7,
-    RST_28 = 0xEF,
-    RST_30 = 0xF7,
-    RST_38 = 0xFF
+    RST_00 = 0xC7, RST_08 = 0xCF,
+    RST_10 = 0xD7, RST_18 = 0xDF,
+    RST_20 = 0xE7, RST_28 = 0xEF,
+    RST_30 = 0xF7, RST_38 = 0xFF
     ;
 }
