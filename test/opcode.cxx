@@ -52,3 +52,27 @@ TEST(OpcodeTest, ResetOpcodeTest) {
     EXPECT_EQ(gb::RST_30, 0xF7);
     EXPECT_EQ(gb::RST_38, 0xFF);
 }
+
+TEST(OpcodeTest, Load16OpcodeTest) {
+    EXPECT_EQ(gb::LD_BC_D16,   0x01);
+    EXPECT_EQ(gb::LD_DE_D16,   0x11);
+    EXPECT_EQ(gb::LD_HL_D16,   0x21);
+    EXPECT_EQ(gb::LD_SP_D16,   0x31);
+    EXPECT_EQ(gb::LD_A16_SP,   0x08);
+    EXPECT_EQ(gb::LD_HL_SP_R8, 0xF8);
+    EXPECT_EQ(gb::LD_SP_HL,    0xF9);
+}
+
+TEST(OpcodeTest, PopOpcodeTest) {
+    EXPECT_EQ(gb::POP_AF, 0xF1);
+    EXPECT_EQ(gb::POP_BC, 0xC1);
+    EXPECT_EQ(gb::POP_DE, 0xD1);
+    EXPECT_EQ(gb::POP_HL, 0xE1);
+}
+
+TEST(OpcodeTest, PushOpcodeTest) {
+    EXPECT_EQ(gb::PUSH_AF, 0xF5);
+    EXPECT_EQ(gb::PUSH_BC, 0xC5);
+    EXPECT_EQ(gb::PUSH_DE, 0xD5);
+    EXPECT_EQ(gb::PUSH_HL, 0xE5);
+}
