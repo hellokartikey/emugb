@@ -13,6 +13,12 @@ void gb::Memory::read_bus() {
     }
 
     memory[addr] = bus.read_data();
+    if (0xE000 <= addr && addr < 0xFE00) {
+        memory[addr - 0x2000] = bus.read_data();
+    }
+    if (0xC000 <= addr && addr < 0xDE00) {
+        memory[addr + 0x2000] = bus.read_data();
+    }
 }
 
 void gb::Memory::load_memory(gb::memory memory) {

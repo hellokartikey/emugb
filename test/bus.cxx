@@ -27,7 +27,7 @@ TEST_F(BusTest, SetRead) {
 
 TEST_F(BusTest, ReadWriteAddrTest) {
     for (int count = 0; count < 100; count++) {
-        gb::word testcase = std::rand() % 0xFFFF;
+        gb::word testcase = std::rand() % gb::max_word;
         bus.write_addr(testcase);
         EXPECT_EQ(bus.read_addr(), testcase);
     }
@@ -35,7 +35,7 @@ TEST_F(BusTest, ReadWriteAddrTest) {
 
 TEST_F(BusTest, ReadWriteDataTest) {
     for (int count = 0; count < 100; count++) {
-        gb::byte testcase = std::rand() % 0xFF;
+        gb::byte testcase = std::rand() % gb::max_byte;
         bus.write_data(testcase);
         EXPECT_EQ(bus.read_data(), testcase);
     }

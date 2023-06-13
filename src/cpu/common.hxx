@@ -8,7 +8,13 @@ namespace gb {
     using byte = uint8_t;
     using word = uint16_t;
 
-    using memory = std::array<byte, 0xFFFF>;
+    constexpr byte max_byte = 0xFF;
+    constexpr word max_word = 0xFFFF;
+    constexpr word memory_size = 0xFFFF;
+    constexpr word cartridge_size = 0x8000;
+
+    using memory = std::array<byte, memory_size>;
+    using cartridge = std::array<byte, 0x8000>;
 
     /**
      * R8   :   8 Bit Register

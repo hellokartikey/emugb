@@ -51,6 +51,7 @@ namespace gb {
 
         void fetch();
         void execute();
+        void reset();
 
         void ld(byte& reg);
         void ld(byte& reg, byte data);
