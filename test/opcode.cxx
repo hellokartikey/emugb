@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "cpu/cpu.hxx"
+#include "fixture.hxx"
 
 TEST(OpcodeTest, MiscOpcodeTest) {
     EXPECT_EQ(gb::NOP, 0x00);

@@ -6,12 +6,14 @@ add_executable(
 
 target_sources(
   ${TEST_TARGET}
+  PRIVATE fixture.cxx
   PRIVATE bus.cxx
   PRIVATE memory.cxx
   PRIVATE cpu.cxx
   PRIVATE opcode.cxx
-  PRIVATE ld_x_d8.cxx
-  PRIVATE ld_x_y.cxx
+  PRIVATE ld_r8_d8.cxx
+  PRIVATE ld_r8_r8.cxx
+  PRIVATE inc.cxx
 )
 
 target_link_libraries(

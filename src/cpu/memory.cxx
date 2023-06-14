@@ -24,3 +24,7 @@ void gb::Memory::read_bus() {
 void gb::Memory::load_memory(gb::memory memory) {
     this->memory = memory;
 }
+
+gb::memory gb::Memory::dump_memory() {
+    return memory;
+}

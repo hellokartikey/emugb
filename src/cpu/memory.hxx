@@ -35,7 +35,7 @@ namespace gb {
          */
 
         // 64 KB memory
-        std::array<byte, memory_size> memory;
+        gb::memory memory;
 
         Bus& bus;
 
@@ -43,7 +43,8 @@ namespace gb {
         Memory(Bus& bus);
 
         void read_bus();
-        void load_memory(gb::memory prog);
+        void load_memory(const gb::memory prog);
+        gb::memory dump_memory();
 
         /** why constexpr function cannot be defined in cxx file? 😭 */
         constexpr static word size() { return memory_size; }

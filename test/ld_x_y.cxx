@@ -17,9 +17,11 @@ TEST_F(LD_R8_R8, LD_A_A) {
     gb::memory program = {
         gb::LD_B_D8, 0x64,
         gb::LD_A_B,
+        gb::LD_A_A,
         gb::HALT
     };
     memory.load_memory(program);
+    cpu.reset();
     /** end - inline program */
 
     cpu.execute();
@@ -31,7 +33,7 @@ TEST_F(LD_R8_R8, LD_A_A) {
     EXPECT_EQ(cpu.E, 0x00);
     EXPECT_EQ(cpu.H, 0x00);
     EXPECT_EQ(cpu.L, 0x00);
-    EXPECT_EQ(cpu.PC, 0x0004);
+    EXPECT_EQ(cpu.PC, 0x0005);
 }
 
 TEST_F(LD_R8_R8, LD_A_B) {
@@ -42,6 +44,7 @@ TEST_F(LD_R8_R8, LD_A_B) {
         gb::HALT
     };
     memory.load_memory(program);
+    cpu.reset();
     /** end - inline program */
 
     cpu.execute();
