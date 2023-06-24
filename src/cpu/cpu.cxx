@@ -5,27 +5,68 @@ gb::CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
     init();
 }
 
+gb::registers_t gb::CPU::get_regs() {
+    return regs;
+}
+
+void gb::CPU::set_regs(gb::registers_t regs) {
+    this->regs = regs;
+}
+
+void gb::CPU::print_status() {
+    std::cout << std::hex;
+    std::cout << "A: " << int(regs.A) << "\t";
+    std::cout << "F: " << int(regs.F) << "\t";
+    std::cout << "z n h c" << "\n";
+
+    std::cout << "B: " << int(regs.B) << "\t";
+    std::cout << "C: " << int(regs.C) << "\t";
+    std::cout << bool(regs.z) << " ";
+    std::cout << bool(regs.n) << " ";
+    std::cout << bool(regs.h) << " ";
+    std::cout << bool(regs.c) << "\n";
+
+    std::cout << "D: " << int(regs.D) << "\t";
+    std::cout << "E: " << int(regs.E) << "\n";
+
+    std::cout << "H: " << int(regs.H) << "\t";
+    std::cout << "L: " << int(regs.L) << std::endl;
+    std::cout << std::dec;
+
+    std::cout << std::endl;
+
+    std::cout << "cycles:\t" << cycles << "\n";
+    std::cout << "current:\t" << current << "\n";
+}
+
+gb::cycles_t gb::CPU::get_cycles() {
+    return cycles;
+}
+
+gb::byte gb::CPU::get_current() {
+    return current;
+}
+
 void gb::CPU::reset() {
-    AF = 0;
-    BC = 0;
-    DE = 0;
-    HL = 0;
-    SP = 0;
-    PC = 0;
-    IR = 0;
+    regs.AF = 0;
+    regs.BC = 0;
+    regs.DE = 0;
+    regs.HL = 0;
+    regs.SP = 0;
+    regs.PC = 0;
+    current = 0;
     cycles = 0;
 }
 
 void gb::CPU::init() {
-    PC = 0x0100;
-    A = 0x11;
-    F = 0xB0;
-    BC = 0x0013;
-    DE = 0x00D8;
-    HL = 0x014D;
-    SP = 0xFFFE;
-    
-    gb::memory init_memory;
+    regs.PC = 0x0100;
+    regs.AF = 0x11B0;
+    regs.BC = 0x0013;
+    regs.DE = 0x00D8;
+    regs.HL = 0x014D;
+    regs.SP = 0xFFFE;
+
+    gb::memory_t init_memory;
     init_memory[0xFF05] = 0x00;
     init_memory[0xFF06] = 0x00;
     init_memory[0xFF07] = 0x00;
@@ -60,12 +101,17 @@ void gb::CPU::init() {
     memory.load_memory(init_memory);
 }
 
+void gb::CPU::cycle() {
+    // For timing
+    cycles++;
+}
+
 void gb::CPU::read_memory(word addr) {
     bus.set_read();
     bus.write_addr(addr);
     memory.read_bus();
-    IR = bus.read_data();
-    cycles++;
+    current = bus.read_data();
+    cycle();
 }
 
 void gb::CPU::write_memory(word addr, byte data) {
@@ -74,69 +120,13 @@ void gb::CPU::write_memory(word addr, byte data) {
     bus.write_data(data);
     memory.read_bus();
     bus.set_read();
-    cycles++;
+    cycle();
 }
 
 void gb::CPU::fetch() {
-    read_memory(PC++);
+    read_memory(regs.PC++);
 }
 
 void gb::CPU::execute() {
-    while (1) {
-        fetch();
-        switch (IR) {
-
-        case LD_B_D8: ld(B); break;
-        case LD_C_D8: ld(C); break;
-        case LD_D_D8: ld(D); break;
-        case LD_E_D8: ld(E); break;
-        case LD_H_D8: ld(H); break;
-        case LD_L_D8: ld(L); break;
-
-        case LD_A_A:  ld(A, A); break;
-        case LD_A_B:  ld(A, B); break;
-        case LD_A_C:  ld(A, C); break;
-        case LD_A_D:  ld(A, D); break;
-        case LD_A_E:  ld(A, E); break;
-        case LD_A_H:  ld(A, H); break;
-        case LD_A_L:  ld(A, L); break;
-        case LD_A_HL: ld(A, HL); break;
-
-        case INC_A: inc(A); break;
-        case INC_B: inc(B); break;
-        case INC_C: inc(C); break;
-        case INC_D: inc(D); break;
-        case INC_E: inc(E); break;
-        case INC_H: inc(H); break;
-        case INC_L: inc(L); break;
-
-        case HALT: return; break;
-        case NOP:  continue; break;
-
-        default: return; break;
-        }
-    }
-}
-
-void gb::CPU::ld(byte& reg) {
-    fetch();
-    reg = IR;
-}
-
-void gb::CPU::ld(byte& reg, byte data) {
-    reg = data;
-}
-
-void gb::CPU::ld(byte& reg, word addr) {
-    cycles++;
-    // bus.write_addr(addr);
-    // reg = bus.read_data();
-}
-
-void gb::CPU::halt() {
     return;
-}
-
-void gb::CPU::inc(byte& reg) {
-    reg++;
 }

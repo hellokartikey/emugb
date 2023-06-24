@@ -35,18 +35,21 @@ namespace gb {
          */
 
         // 64 KB memory
-        gb::memory memory;
-
+        memory_t memory;
         Bus& bus;
 
     public:
         Memory(Bus& bus);
 
         void read_bus();
-        void load_memory(const gb::memory prog);
-        gb::memory dump_memory();
+        void load_memory(const memory_t prog);
+        memory_t dump_memory();
 
         /** why constexpr function cannot be defined in cxx file? 😭 */
         constexpr static word size() { return memory_size; }
+
+    private:
+        byte read(word addr);
+        void write(word addr, byte data);
     };
 }

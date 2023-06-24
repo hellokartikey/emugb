@@ -19,7 +19,7 @@ TEST_F(MemoryTest, SizeTest) {
 }
 
 TEST_F(MemoryTest, ReadWriteTest) {
-    gb::memory random_values;
+    gb::memory_t random_values;
     bus.set_write();
     for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
         if (0xE000 <= addr && addr < 0xFE00) {
@@ -86,7 +86,7 @@ TEST_F(MemoryTest, EchoMemoryBackwardTest) {
 }
 
 TEST_F(MemoryTest, LoadProgramTest) {
-    gb::memory program;
+    gb::memory_t program;
     for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
         program[addr] = gb::rand_byte();
     }
@@ -101,13 +101,13 @@ TEST_F(MemoryTest, LoadProgramTest) {
 }
 
 TEST_F(MemoryTest, MemoryDumpTest) {
-    gb::memory program;
+    gb::memory_t program;
     for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
         program[addr] = gb::rand_byte();
     }
     memory.load_memory(program);
 
-    gb::memory dump = memory.dump_memory();
+    gb::memory_t dump = memory.dump_memory();
 
     EXPECT_EQ(program, dump);
 }
