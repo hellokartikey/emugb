@@ -17,6 +17,8 @@ namespace gb {
         void ld_r16_d16(word& r16);
         void ld_r8_d8(byte& r8);
         void ld_a16_d8(const word& a16);
+        void ld_r8_r8(byte& dst_r8, const byte src_r8);
+        void ld_r8_a16(byte& dst_r8, const word src_a16);
 
     public:
         registers_t regs;

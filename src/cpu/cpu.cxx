@@ -153,6 +153,15 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_AHL_D8: ld_a16_d8(regs.HL); break;
             case LD_A_D8:   ld_r8_d8(regs.A); break;
 
+            case LD_B_B:   ld_r8_r8(regs.B, regs.B); break;
+            case LD_B_C:   ld_r8_r8(regs.B, regs.C); break;
+            case LD_B_D:   ld_r8_r8(regs.B, regs.D); break;
+            case LD_B_E:   ld_r8_r8(regs.B, regs.E); break;
+            case LD_B_H:   ld_r8_r8(regs.B, regs.H); break;
+            case LD_B_L:   ld_r8_r8(regs.B, regs.L); break;
+            case LD_B_AHL: ld_r8_a16(regs.B, regs.HL); break;
+            case LD_B_A:   ld_r8_r8(regs.B, regs.A); break;
+
             default: return;
         }
     }
@@ -183,4 +192,13 @@ void gb::CPU::ld_r8_d8(gb::byte& r8) {
 void gb::CPU::ld_a16_d8(const gb::word& a16) {
     fetch();
     write_memory(a16, current);
+}
+
+void gb::CPU::ld_r8_r8(byte& dst_r8, const byte src_r8) {
+    dst_r8 = src_r8;
+}
+
+void gb::CPU::ld_r8_a16(byte& dst_r8, const word src_a16) {
+    read_memory(src_a16);
+    dst_r8 = current;
 }
