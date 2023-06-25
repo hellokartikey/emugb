@@ -189,6 +189,24 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_E_AHL: ld_r8_a16(regs.E, regs.HL); break;
             case LD_E_A:   ld_r8_r8(regs.E, regs.A); break;
 
+            case LD_H_B:   ld_r8_r8(regs.H, regs.B); break;
+            case LD_H_C:   ld_r8_r8(regs.H, regs.C); break;
+            case LD_H_D:   ld_r8_r8(regs.H, regs.D); break;
+            case LD_H_E:   ld_r8_r8(regs.H, regs.E); break;
+            case LD_H_H:   ld_r8_r8(regs.H, regs.H); break;
+            case LD_H_L:   ld_r8_r8(regs.H, regs.L); break;
+            case LD_H_AHL: ld_r8_a16(regs.H, regs.HL); break;
+            case LD_H_A:   ld_r8_r8(regs.H, regs.A); break;
+
+            case LD_L_B:   ld_r8_r8(regs.L, regs.B); break;
+            case LD_L_C:   ld_r8_r8(regs.L, regs.C); break;
+            case LD_L_D:   ld_r8_r8(regs.L, regs.D); break;
+            case LD_L_E:   ld_r8_r8(regs.L, regs.E); break;
+            case LD_L_H:   ld_r8_r8(regs.L, regs.H); break;
+            case LD_L_L:   ld_r8_r8(regs.L, regs.L); break;
+            case LD_L_AHL: ld_r8_a16(regs.L, regs.HL); break;
+            case LD_L_A:   ld_r8_r8(regs.L, regs.A); break;
+
             default: return;
         }
     }

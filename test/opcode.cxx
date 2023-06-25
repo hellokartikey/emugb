@@ -70,3 +70,25 @@ TEST(OpcodeTest, LD_E_Test) {
     EXPECT_EQ(LD_E_AHL, 0x5E);
     EXPECT_EQ(LD_E_A,   0x5F);
 }
+
+TEST(OpcodeTest, LD_H_Test) {
+    EXPECT_EQ(LD_H_B,   0x60);
+    EXPECT_EQ(LD_H_C,   0x61);
+    EXPECT_EQ(LD_H_D,   0x62);
+    EXPECT_EQ(LD_H_E,   0x63);
+    EXPECT_EQ(LD_H_H,   0x64);
+    EXPECT_EQ(LD_H_L,   0x65);
+    EXPECT_EQ(LD_H_AHL, 0x66);
+    EXPECT_EQ(LD_H_A,   0x67);
+}
+
+TEST(OpcodeTest, LD_L_Test) {
+    EXPECT_EQ(LD_L_B,   0x68);
+    EXPECT_EQ(LD_L_C,   0x69);
+    EXPECT_EQ(LD_L_D,   0x6A);
+    EXPECT_EQ(LD_L_E,   0x6B);
+    EXPECT_EQ(LD_L_H,   0x6C);
+    EXPECT_EQ(LD_L_L,   0x6D);
+    EXPECT_EQ(LD_L_AHL, 0x6E);
+    EXPECT_EQ(LD_L_A,   0x6F);
+}
