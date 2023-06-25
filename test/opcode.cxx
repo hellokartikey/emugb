@@ -92,3 +92,24 @@ TEST(OpcodeTest, LD_L_Test) {
     EXPECT_EQ(LD_L_AHL, 0x6E);
     EXPECT_EQ(LD_L_A,   0x6F);
 }
+
+TEST(OpcodeTest, LD_AHL_Test) {
+    EXPECT_EQ(LD_AHL_B,   0x70);
+    EXPECT_EQ(LD_AHL_C,   0x71);
+    EXPECT_EQ(LD_AHL_D,   0x72);
+    EXPECT_EQ(LD_AHL_E,   0x73);
+    EXPECT_EQ(LD_AHL_H,   0x74);
+    EXPECT_EQ(LD_AHL_L,   0x75);
+    EXPECT_EQ(LD_AHL_A,   0x77);
+}
+
+TEST(OpcodeTest, LD_A_Test) {
+    EXPECT_EQ(LD_A_B,   0x78);
+    EXPECT_EQ(LD_A_C,   0x79);
+    EXPECT_EQ(LD_A_D,   0x7A);
+    EXPECT_EQ(LD_A_E,   0x7B);
+    EXPECT_EQ(LD_A_H,   0x7C);
+    EXPECT_EQ(LD_A_L,   0x7D);
+    EXPECT_EQ(LD_A_AHL, 0x7E);
+    EXPECT_EQ(LD_A_A,   0x7F);
+}
