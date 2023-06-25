@@ -20,7 +20,7 @@ target_sources(
   PRIVATE ld_e_r8.cxx
   PRIVATE ld_h_r8.cxx
   PRIVATE ld_l_r8.cxx
-  PRIVATE ld_ahl_r8.cxx
+  PRIVATE ld_ar16_r8.cxx
   PRIVATE ld_a_r8.cxx
 )
 

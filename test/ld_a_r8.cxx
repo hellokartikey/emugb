@@ -150,3 +150,85 @@ TEST_F(Opcode_LD_A_Test, LD_A_A_Test) {
     EXPECT_EQ(regs.A, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
+
+TEST_F(Opcode_LD_A_Test, LD_A_ABC_Test) {
+    /** start - inline program */
+    cpu.reset();
+    memory_t program = {
+        LD_BC_D16, 0x34, 0x12,
+        LD_A_D8, 0xab,
+        LD_ABC_A,
+        LD_A_D8, 0x00,
+        LD_A_ABC
+    };
+    memory.load_memory(program);
+    cycles_t steps = 11;
+    /** end   - inline program */
+
+    cpu.execute(steps);
+    registers_t regs = cpu.get_regs();
+
+    EXPECT_EQ(regs.A, 0xab);
+    EXPECT_EQ(steps, cpu.get_cycles());
+}
+
+TEST_F(Opcode_LD_A_Test, LD_A_ADE_Test) {
+    /** start - inline program */
+    cpu.reset();
+    memory_t program = {
+        LD_DE_D16, 0x34, 0x12,
+        LD_A_D8, 0xab,
+        LD_ADE_A,
+        LD_A_D8, 0x00,
+        LD_A_ADE
+    };
+    memory.load_memory(program);
+    cycles_t steps = 11;
+    /** end   - inline program */
+
+    cpu.execute(steps);
+    registers_t regs = cpu.get_regs();
+
+    EXPECT_EQ(regs.A, 0xab);
+    EXPECT_EQ(steps, cpu.get_cycles());
+}
+
+TEST_F(Opcode_LD_A_Test, LD_A_AHLP_Test) {
+    /** start - inline program */
+    cpu.reset();
+    memory_t program = {
+        LD_HL_D16, 0x34, 0x12,
+        LD_AHL_D8, 0xab,
+        LD_A_AHLP
+    };
+    memory.load_memory(program);
+    cycles_t steps = 8;
+    /** end   - inline program */
+
+    cpu.execute(steps);
+    registers_t regs = cpu.get_regs();
+
+    EXPECT_EQ(regs.A, 0xab);
+    EXPECT_EQ(regs.HL, 0x1235);
+    EXPECT_EQ(steps, cpu.get_cycles());
+}
+
+TEST_F(Opcode_LD_A_Test, LD_A_AHLM_Test) {
+    /** start - inline program */
+    cpu.reset();
+    memory_t program = {
+        LD_HL_D16, 0x34, 0x12,
+        LD_AHL_D8, 0xab,
+        LD_A_AHLM
+    };
+    memory.load_memory(program);
+    cycles_t steps = 8;
+    /** end   - inline program */
+
+    cpu.execute(steps);
+    registers_t regs = cpu.get_regs();
+
+    EXPECT_EQ(regs.A, 0xab);
+    EXPECT_EQ(regs.HL, 0x1233);
+    EXPECT_EQ(steps, cpu.get_cycles());
+}

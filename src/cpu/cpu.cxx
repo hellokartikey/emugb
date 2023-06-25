@@ -214,6 +214,10 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_AHL_H:   ld_a16_r8(regs.HL, regs.H); break;
             case LD_AHL_L:   ld_a16_r8(regs.HL, regs.L); break;
             case LD_AHL_A:   ld_a16_r8(regs.HL, regs.A); break;
+            case LD_ABC_A:   ld_a16_r8(regs.BC, regs.A); break;
+            case LD_ADE_A:   ld_a16_r8(regs.DE, regs.A); break;
+            case LD_AHLP_A:  ld_a16_r8(regs.HL++, regs.A); break;
+            case LD_AHLM_A:  ld_a16_r8(regs.HL--, regs.A); break;
 
             case LD_A_B:   ld_r8_r8(regs.A, regs.B); break;
             case LD_A_C:   ld_r8_r8(regs.A, regs.C); break;
@@ -223,6 +227,10 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_A_L:   ld_r8_r8(regs.A, regs.L); break;
             case LD_A_AHL: ld_r8_a16(regs.A, regs.HL); break;
             case LD_A_A:   ld_r8_r8(regs.A, regs.A); break;
+            case LD_A_ABC: ld_r8_a16(regs.A, regs.BC); break;
+            case LD_A_ADE: ld_r8_a16(regs.A, regs.DE); break;
+            case LD_A_AHLP: ld_r8_a16(regs.A, regs.HL++); break;
+            case LD_A_AHLM: ld_r8_a16(regs.A, regs.HL--); break;
 
             default: return;
         }
@@ -251,20 +259,20 @@ void gb::CPU::ld_r8_d8(gb::byte& r8) {
     r8 = current;
 }
 
-void gb::CPU::ld_a16_d8(const gb::word& a16) {
+void gb::CPU::ld_a16_d8(gb::word& a16) {
     fetch();
     write_memory(a16, current);
 }
 
-void gb::CPU::ld_r8_r8(byte& r8_dst, const byte r8_src) {
+void gb::CPU::ld_r8_r8(gb::byte& r8_dst, gb::byte r8_src) {
     r8_dst = r8_src;
 }
 
-void gb::CPU::ld_r8_a16(byte& r8_dst, const word r8_src) {
-    read_memory(r8_src);
-    r8_dst = current;
+void gb::CPU::ld_r8_a16(gb::byte& r8, gb::word a16) {
+    read_memory(a16);
+    r8 = current;
 }
 
-void gb::CPU::ld_a16_r8(const word a16, const byte r8) {
+void gb::CPU::ld_a16_r8(gb::word a16, gb::byte r8) {
     write_memory(a16, r8);
 }
