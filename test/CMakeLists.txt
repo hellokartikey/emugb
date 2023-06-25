@@ -17,6 +17,7 @@ target_sources(
   PRIVATE ld_b_r8.cxx
   PRIVATE ld_c_r8.cxx
   PRIVATE ld_d_r8.cxx
+  PRIVATE ld_e_r8.cxx
 )
 
 target_link_libraries(

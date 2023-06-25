@@ -59,3 +59,14 @@ TEST(OpcodeTest, LD_D_Test) {
     EXPECT_EQ(LD_D_AHL, 0x56);
     EXPECT_EQ(LD_D_A,   0x57);
 }
+
+TEST(OpcodeTest, LD_E_Test) {
+    EXPECT_EQ(LD_E_B,   0x58);
+    EXPECT_EQ(LD_E_C,   0x59);
+    EXPECT_EQ(LD_E_D,   0x5A);
+    EXPECT_EQ(LD_E_E,   0x5B);
+    EXPECT_EQ(LD_E_H,   0x5C);
+    EXPECT_EQ(LD_E_L,   0x5D);
+    EXPECT_EQ(LD_E_AHL, 0x5E);
+    EXPECT_EQ(LD_E_A,   0x5F);
+}
