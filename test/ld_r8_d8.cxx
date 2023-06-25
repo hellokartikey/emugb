@@ -2,11 +2,11 @@
 
 #include "fixture.hxx"
 
-using Opcode_LD_R8_D8_Test = CPUTest;
+using Opcode_LD_X_D8_Test = CPUTest;
 
 using namespace gb;
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_B_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_B_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -23,7 +23,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_B_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_C_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_C_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -40,7 +40,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_C_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_D_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_D_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -57,7 +57,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_D_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_E_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_E_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -74,7 +74,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_E_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_H_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_H_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -91,7 +91,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_H_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_L_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_L_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -108,7 +108,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_L_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_AHL_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_AHL_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
@@ -126,7 +126,7 @@ TEST_F(Opcode_LD_R8_D8_Test, LD_AHL_D8_Test) {
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_R8_D8_Test, LD_A_D8_Test) {
+TEST_F(Opcode_LD_X_D8_Test, LD_A_D8_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {

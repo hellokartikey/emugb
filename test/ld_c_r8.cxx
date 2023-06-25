@@ -2,16 +2,16 @@
 
 #include "fixture.hxx"
 
-using Opcode_LD_B_Test = CPUTest;
+using Opcode_LD_C_Test = CPUTest;
 
 using namespace gb;
 
-TEST_F(Opcode_LD_B_Test, LD_B_B_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_B_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_B_D8, 0xab,
-        LD_B_B
+        LD_C_B
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -20,16 +20,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_B_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_C_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_C_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_C_D8, 0xab,
-        LD_B_C
+        LD_C_C
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -38,16 +38,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_C_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_D_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_D_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_D_D8, 0xab,
-        LD_B_D
+        LD_C_D
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -56,16 +56,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_D_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_E_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_E_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_E_D8, 0xab,
-        LD_B_E
+        LD_C_E
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -74,16 +74,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_E_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_H_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_H_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_H_D8, 0xab,
-        LD_B_H
+        LD_C_H
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -92,16 +92,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_H_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_L_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_L_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_L_D8, 0xab,
-        LD_B_L
+        LD_C_L
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -110,17 +110,17 @@ TEST_F(Opcode_LD_B_Test, LD_B_L_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_AHL_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_AHL_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_AHL_D8, 0xab,
-        LD_B_AHL
+        LD_C_AHL
     };
     memory.load_memory(program);
     cycles_t steps = 8;
@@ -129,16 +129,16 @@ TEST_F(Opcode_LD_B_Test, LD_B_AHL_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
-TEST_F(Opcode_LD_B_Test, LD_B_A_Test) {
+TEST_F(Opcode_LD_C_Test, LD_C_A_Test) {
     /** start - inline program */
     cpu.reset();
     memory_t program = {
         LD_A_D8, 0xab,
-        LD_B_A
+        LD_C_A
     };
     memory.load_memory(program);
     cycles_t steps = 3;
@@ -147,6 +147,6 @@ TEST_F(Opcode_LD_B_Test, LD_B_A_Test) {
     cpu.execute(steps);
     registers_t regs = cpu.get_regs();
 
-    EXPECT_EQ(regs.B, 0xab);
+    EXPECT_EQ(regs.C, 0xab);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
