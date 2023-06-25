@@ -18,7 +18,7 @@ void gb::Bus::set_read() {
     read = true;
 }
 
-void gb::Bus::write_addr(word addr) {
+void gb::Bus::write_addr(gb::word addr) {
     this->addr = addr;
 }
 
@@ -26,7 +26,7 @@ gb::word gb::Bus::read_addr() {
     return addr;
 }
 
-void gb::Bus::write_data(byte data) {
+void gb::Bus::write_data(gb::byte data) {
     this->data = data;
 }
 

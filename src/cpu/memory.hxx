@@ -33,7 +33,6 @@ namespace gb {
          * ff68 - ff69 : BG/OBJ Palettes
          * ff70        : WRAM bank select
          */
-
         // 64 KB memory
         memory_t memory;
         Bus& bus;
@@ -41,12 +40,12 @@ namespace gb {
     public:
         Memory(Bus& bus);
 
+        /** why constexpr function cannot be defined in cxx file? 😭 */
+        constexpr static word size() { return memory_size; }
+
         void read_bus();
         void load_memory(const memory_t prog);
         memory_t dump_memory();
-
-        /** why constexpr function cannot be defined in cxx file? 😭 */
-        constexpr static word size() { return memory_size; }
 
     private:
         byte read(word addr);

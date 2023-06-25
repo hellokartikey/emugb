@@ -10,12 +10,12 @@ TEST_F(BusTest, InitTest) {
 
 TEST_F(BusTest, SetWrite) {
     bus.set_write();
-    EXPECT_EQ(bus.read_signal(), false);
+    EXPECT_FALSE(bus.read_signal());
 }
 
 TEST_F(BusTest, SetRead) {
     bus.set_read();
-    EXPECT_EQ(bus.read_signal(), true);
+    EXPECT_TRUE(bus.read_signal());
 }
 
 TEST_F(BusTest, ReadWriteAddrTest) {

@@ -5,15 +5,23 @@ gb::Memory::Memory(Bus& bus) : bus(bus) {
 }
 
 void gb::Memory::read_bus() {
-    word addr = bus.read_addr();
+    gb::word addr = bus.read_addr();
 
     if (bus.read_signal()) {
         bus.write_data(read(addr));
         return;
     }
 
-    byte data = bus.read_data();
+    gb::byte data = bus.read_data();
     write(addr, data);
+}
+
+void gb::Memory::load_memory(memory_t memory) {
+    this->memory = memory;
+}
+
+gb::memory_t gb::Memory::dump_memory() {
+    return memory;
 }
 
 gb::byte gb::Memory::read(gb::word addr) {
@@ -25,12 +33,4 @@ void gb::Memory::write(gb::word addr, gb::byte data) {
 
     if (0xE000 <= addr && addr < 0xFE00) { memory[addr - 0x2000] = data; }
     if (0xC000 <= addr && addr < 0xDE00) { memory[addr + 0x2000] = data; }
-}
-
-void gb::Memory::load_memory(gb::memory_t memory) {
-    this->memory = memory;
-}
-
-gb::memory_t gb::Memory::dump_memory() {
-    return memory;
 }

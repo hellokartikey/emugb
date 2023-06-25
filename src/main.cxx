@@ -4,12 +4,14 @@
 #include "cpu/bus.hxx"
 #include "cpu/memory.hxx"
 
+using namespace gb;
+
 int main() {
     std::cout << "Hello World!\n";
 
-    gb::Bus bus;
-    gb::Memory memory(bus);
-    gb::CPU cpu(bus, memory);
+    Bus bus;
+    Memory memory(bus);
+    CPU cpu(bus, memory);
 
     /** start - inline program */
     // gb::memory_t program = {

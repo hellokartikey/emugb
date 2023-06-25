@@ -9,7 +9,11 @@ target_sources(
   PRIVATE fixture.cxx
   PRIVATE bus.cxx
   PRIVATE memory.cxx
-  # PRIVATE cpu.cxx
+  PRIVATE cpu.cxx
+  PRIVATE opcode.cxx
+  PRIVATE misc.cxx
+  PRIVATE ld_r16_d16.cxx
+  PRIVATE ld_r8_d8.cxx
 )
 
 target_link_libraries(

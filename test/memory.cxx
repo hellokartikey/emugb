@@ -22,9 +22,7 @@ TEST_F(MemoryTest, ReadWriteTest) {
     gb::memory_t random_values;
     bus.set_write();
     for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
-        if (0xE000 <= addr && addr < 0xFE00) {
-            continue;
-        }
+        if (0xE000 <= addr && addr < 0xFE00) { continue; }
 
         random_values[addr] = gb::rand_byte();
         bus.write_addr(addr);
@@ -34,9 +32,7 @@ TEST_F(MemoryTest, ReadWriteTest) {
 
     bus.set_read();
     for (gb::word addr = 0x0000; addr < memory.size(); addr++) {
-        if (0xE000 <= addr && addr < 0xFE00) {
-            continue;
-        }
+        if (0xE000 <= addr && addr < 0xFE00) { continue; }
         bus.write_addr(addr);
         memory.read_bus();
         EXPECT_EQ(bus.read_data(), random_values[addr]);
@@ -66,9 +62,7 @@ TEST_F(MemoryTest, EchoMemoryForwardTest) {
 
 TEST_F(MemoryTest, EchoMemoryBackwardTest) {
     std::array<gb::byte, 0x1E00> echo_test;
-    for (auto& byte: echo_test) {
-        byte = gb::rand_byte();
-    }
+    for (auto& byte: echo_test) { byte = gb::rand_byte(); }
 
     bus.set_write();
     for (gb::word addr = 0xE000; addr < 0xFE00; addr++) {

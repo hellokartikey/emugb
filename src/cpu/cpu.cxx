@@ -1,3 +1,5 @@
+#include <format>
+
 #include "cpu.hxx"
 
 gb::CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
@@ -30,13 +32,16 @@ void gb::CPU::print_status() {
     std::cout << "E: " << int(regs.E) << "\n";
 
     std::cout << "H: " << int(regs.H) << "\t";
-    std::cout << "L: " << int(regs.L) << std::endl;
+    std::cout << "L: " << int(regs.L) << "\n";
+
+    std::cout << "PC: " << int(regs.PC) << "\n";
+    std::cout << "SP: " << int(regs.SP) << "\n";
+
+    std::cout << "cycles: " << int(cycles) << "\n";
+    std::cout << "current: " << int(current) << "\n";
+
     std::cout << std::dec;
-
     std::cout << std::endl;
-
-    std::cout << "cycles:\t" << cycles << "\n";
-    std::cout << "current:\t" << current << "\n";
 }
 
 gb::cycles_t gb::CPU::get_cycles() {
@@ -59,14 +64,14 @@ void gb::CPU::reset() {
 }
 
 void gb::CPU::init() {
-    regs.PC = 0x0100;
+    regs.PC = 0x0000; // PC will be set when attaching cartridge
     regs.AF = 0x11B0;
     regs.BC = 0x0013;
     regs.DE = 0x00D8;
     regs.HL = 0x014D;
     regs.SP = 0xFFFE;
 
-    gb::memory_t init_memory;
+    memory_t init_memory = {0};
     init_memory[0xFF05] = 0x00;
     init_memory[0xFF06] = 0x00;
     init_memory[0xFF07] = 0x00;
@@ -87,7 +92,7 @@ void gb::CPU::init() {
     init_memory[0xFF23] = 0xBF;
     init_memory[0xFF24] = 0x77;
     init_memory[0xFF25] = 0xF3;
-    init_memory[0xFF26] = 0xF1; // Not sure
+    init_memory[0xFF26] = 0xF1;
     init_memory[0xFF40] = 0x91;
     init_memory[0xFF42] = 0x00;
     init_memory[0xFF43] = 0x00;
@@ -106,7 +111,7 @@ void gb::CPU::cycle() {
     cycles++;
 }
 
-void gb::CPU::read_memory(word addr) {
+void gb::CPU::read_memory(gb::word addr) {
     bus.set_read();
     bus.write_addr(addr);
     memory.read_bus();
@@ -114,7 +119,7 @@ void gb::CPU::read_memory(word addr) {
     cycle();
 }
 
-void gb::CPU::write_memory(word addr, byte data) {
+void gb::CPU::write_memory(gb::word addr, gb::byte data) {
     bus.set_write();
     bus.write_addr(addr);
     bus.write_data(data);
@@ -127,6 +132,55 @@ void gb::CPU::fetch() {
     read_memory(regs.PC++);
 }
 
-void gb::CPU::execute() {
+void gb::CPU::execute(gb::cycles_t steps) {
+    while (steps > 0 ? cycles < steps : true) {
+        fetch();
+        switch (current) {
+            case NOP: nop(); break;
+            case STOP: stop(); break;
+
+            case LD_BC_D16: ld_r16_d16(regs.BC); break;
+            case LD_DE_D16: ld_r16_d16(regs.DE); break;
+            case LD_HL_D16: ld_r16_d16(regs.HL); break;
+            case LD_SP_D16: ld_r16_d16(regs.SP); break;
+
+            case LD_B_D8:   ld_r8_d8(regs.B); break;
+            case LD_C_D8:   ld_r8_d8(regs.C); break;
+            case LD_D_D8:   ld_r8_d8(regs.D); break;
+            case LD_E_D8:   ld_r8_d8(regs.E); break;
+            case LD_H_D8:   ld_r8_d8(regs.H); break;
+            case LD_L_D8:   ld_r8_d8(regs.L); break;
+            case LD_AHL_D8: ld_a16_d8(regs.HL); break;
+            case LD_A_D8:   ld_r8_d8(regs.A); break;
+
+            default: return;
+        }
+    }
+}
+
+void gb::CPU::nop() {
     return;
+}
+
+void gb::CPU::stop() {
+    while (true) {}
+}
+
+void gb::CPU::ld_r16_d16(gb::word& r16) {
+    gb::word d16;
+    fetch();
+    d16 = current;
+    fetch();
+    d16 += (gb::word(current) << 8);
+    r16 = d16;
+}
+
+void gb::CPU::ld_r8_d8(gb::byte& r8) {
+    fetch();
+    r8 = current;
+}
+
+void gb::CPU::ld_a16_d8(const gb::word& a16) {
+    fetch();
+    write_memory(a16, current);
 }

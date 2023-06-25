@@ -6,11 +6,17 @@
 
 namespace gb {
     class CPU {
+        Bus& bus;
+        Memory& memory;
+
         byte current;
         cycles_t cycles;
 
-        Bus& bus;
-        Memory& memory;
+        void nop();
+        void stop();
+        void ld_r16_d16(word& r16);
+        void ld_r8_d8(byte& r8);
+        void ld_a16_d8(const word& a16);
 
     public:
         registers_t regs;
@@ -31,6 +37,6 @@ namespace gb {
         void init();
         void cycle();
         void fetch();
-        void execute();
+        void execute(const cycles_t steps=0);
     };
 }

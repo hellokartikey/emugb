@@ -50,6 +50,11 @@ namespace gb {
         word PC;
     };
 
+    bool regs_iseq(registers_t regs1, registers_t regs2);
+
+    byte rand_byte();
+    word rand_word();
+
     /**
      * R8   :   8 Bit Register
      * R16  :   16 Bit Register
@@ -173,7 +178,4 @@ namespace gb {
     ADD_HL_BC = 0x09, ADD_HL_DE = 0x19, ADD_HL_HL = 0x29, ADD_HL_SP = 0x39,
     ADD_SP_R8 = 0xE8
     ;
-
-    byte rand_byte();
-    word rand_word();
 }
