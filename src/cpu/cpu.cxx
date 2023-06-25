@@ -171,6 +171,15 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_C_AHL: ld_r8_a16(regs.C, regs.HL); break;
             case LD_C_A:   ld_r8_r8(regs.C, regs.A); break;
 
+            case LD_D_B:   ld_r8_r8(regs.D, regs.B); break;
+            case LD_D_C:   ld_r8_r8(regs.D, regs.C); break;
+            case LD_D_D:   ld_r8_r8(regs.D, regs.D); break;
+            case LD_D_E:   ld_r8_r8(regs.D, regs.E); break;
+            case LD_D_H:   ld_r8_r8(regs.D, regs.H); break;
+            case LD_D_L:   ld_r8_r8(regs.D, regs.L); break;
+            case LD_D_AHL: ld_r8_a16(regs.D, regs.HL); break;
+            case LD_D_A:   ld_r8_r8(regs.D, regs.A); break;
+
             default: return;
         }
     }
