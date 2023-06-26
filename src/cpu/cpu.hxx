@@ -23,6 +23,8 @@ namespace gb {
         void ld_r8_a16(byte& r8, word a16);
         void ld_a16_r8(word a16, byte r8);
         void ld_a16_r16(word& r16);
+        void push(word r16);
+        void pop(word& r16);
 
     public:
         registers_t regs;

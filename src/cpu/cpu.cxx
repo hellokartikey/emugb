@@ -1,5 +1,3 @@
-#include <format>
-
 #include "cpu.hxx"
 
 gb::CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
@@ -235,12 +233,23 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_A_AHLP: ld_r8_a16(regs.A, regs.HL++); break;
             case LD_A_AHLM: ld_r8_a16(regs.A, regs.HL--); break;
 
+            case PUSH_BC: push(regs.BC); break;
+            case PUSH_DE: push(regs.DE); break;
+            case PUSH_HL: push(regs.HL); break;
+            case PUSH_AF: push(regs.AF); break;
+
+            case POP_BC: pop(regs.BC); break;
+            case POP_DE: pop(regs.DE); break;
+            case POP_HL: pop(regs.HL); break;
+            case POP_AF: pop(regs.AF); break;
+
             default: return;
         }
     }
 }
 
 void gb::CPU::nop() {
+    std::cout << "NOP\n";
     return;
 }
 
@@ -300,6 +309,7 @@ void gb::CPU::ld_r16_r16_r8(word& r16_dst, word r16_src) {
     word dst_bef = r16_src;
     fetch();
     word dst_aff = r16_src + current;
+    cycle();
 
     h = half_carry_add(r16_src, current);
     c = carry_add(r16_src, current);
@@ -314,4 +324,23 @@ void gb::CPU::ld_r16_r16_r8(word& r16_dst, word r16_src) {
 
 void gb::CPU::ld_r16_r16(word& r16_dst, word r16_src) {
     r16_dst = r16_src;
+}
+
+void gb::CPU::push(word r16) {
+    byte lsb = r16;
+    byte msb = r16 >> 8;
+
+    cycle();
+
+    write_memory(regs.SP--, msb);
+    write_memory(regs.SP--, lsb);
+}
+
+void gb::CPU::pop(word& r16) {
+    read_memory(++regs.SP);
+    byte lsb = current;
+    read_memory(++regs.SP);
+    byte msb = current;
+
+    r16 = (word(msb) << 8) + lsb;
 }

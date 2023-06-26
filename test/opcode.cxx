@@ -124,3 +124,17 @@ TEST(OpcodeTest, LD_A_Test) {
     EXPECT_EQ(LD_A_AHLP, 0x2A);
     EXPECT_EQ(LD_A_AHLM, 0x3A);
 }
+
+TEST(OpcodeTest, PUSH_Test) {
+    EXPECT_EQ(PUSH_BC, 0xc5);
+    EXPECT_EQ(PUSH_DE, 0xd5);
+    EXPECT_EQ(PUSH_HL, 0xe5);
+    EXPECT_EQ(PUSH_AF, 0xf5);
+}
+
+TEST(OpcodeTest, POP_Test) {
+    EXPECT_EQ(POP_BC, 0xc1);
+    EXPECT_EQ(POP_DE, 0xd1);
+    EXPECT_EQ(POP_HL, 0xe1);
+    EXPECT_EQ(POP_AF, 0xf1);
+}
