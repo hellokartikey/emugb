@@ -14,6 +14,9 @@ TEST(OpcodeTest, LD_R16_D16_Test) {
     EXPECT_EQ(LD_DE_D16, 0x11);
     EXPECT_EQ(LD_HL_D16, 0x21);
     EXPECT_EQ(LD_SP_D16, 0x31);
+    EXPECT_EQ(LD_A16_SP, 0x08);
+    EXPECT_EQ(LD_HL_SP_R8, 0xF8);
+    EXPECT_EQ(LD_SP_HL, 0xF9);
 }
 
 TEST(OpcodeTest, LD_X_D8_Test) {

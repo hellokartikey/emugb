@@ -15,11 +15,14 @@ namespace gb {
         void nop();
         void stop();
         void ld_r16_d16(word& r16);
+        void ld_r16_r16(word& r16_dst, word r16_src);
+        void ld_r16_r16_r8(word& r16_dst, word r16_src);
         void ld_r8_d8(byte& r8);
         void ld_a16_d8(word& a16);
         void ld_r8_r8(byte& r8_dst, byte r8_src);
         void ld_r8_a16(byte& r8, word a16);
         void ld_a16_r8(word a16, byte r8);
+        void ld_a16_r16(word& r16);
 
     public:
         registers_t regs;

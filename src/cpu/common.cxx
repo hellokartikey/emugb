@@ -18,3 +18,11 @@ bool gb::regs_iseq(gb::registers_t regs1, gb::registers_t regs2) {
     }
     return false;
 }
+
+bool gb::carry_add(gb::byte op1, gb::byte op2) {
+    return (op1 & 0x80) * (op2 & 0x80);
+}
+
+bool gb::half_carry_add(gb::byte op1, gb::byte op2) {
+    return (op1 & 0x08) * (op2 & 0x08);
+}

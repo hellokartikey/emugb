@@ -143,6 +143,9 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_DE_D16: ld_r16_d16(regs.DE); break;
             case LD_HL_D16: ld_r16_d16(regs.HL); break;
             case LD_SP_D16: ld_r16_d16(regs.SP); break;
+            case LD_A16_SP: ld_a16_r16(regs.SP); break;
+            case LD_HL_SP_R8: ld_r16_r16_r8(regs.HL, regs.SP);
+            case LD_SP_HL:  ld_r16_r16(regs.SP, regs.HL); break;
 
             case LD_B_D8:   ld_r8_d8(regs.B); break;
             case LD_C_D8:   ld_r8_d8(regs.C); break;
@@ -275,4 +278,40 @@ void gb::CPU::ld_r8_a16(gb::byte& r8, gb::word a16) {
 
 void gb::CPU::ld_a16_r8(gb::word a16, gb::byte r8) {
     write_memory(a16, r8);
+}
+
+void gb::CPU::ld_a16_r16(gb::word& r16) {
+    word addr = 0x0000;
+    fetch();
+    addr += current;
+    fetch();
+    addr += word(current) << 8;
+
+    byte msb = regs.SP >> 8;
+    byte lsb = regs.SP;
+
+    write_memory(addr, lsb);
+    write_memory(addr+1, msb);
+}
+
+void gb::CPU::ld_r16_r16_r8(word& r16_dst, word r16_src) {
+    bool h, c;
+
+    word dst_bef = r16_src;
+    fetch();
+    word dst_aff = r16_src + current;
+
+    h = half_carry_add(r16_src, current);
+    c = carry_add(r16_src, current);
+
+    r16_dst = dst_aff;
+
+    regs.z = 0;
+    regs.n = 0;
+    regs.h = h;
+    regs.c = c;
+}
+
+void gb::CPU::ld_r16_r16(word& r16_dst, word r16_src) {
+    r16_dst = r16_src;
 }
