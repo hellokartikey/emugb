@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "memory.hxx"
 
 gb::Memory::Memory(Bus& bus) : bus(bus) {
@@ -33,4 +35,19 @@ void gb::Memory::write(gb::word addr, gb::byte data) {
 
     if (0xE000 <= addr && addr < 0xFE00) { memory[addr - 0x2000] = data; }
     if (0xC000 <= addr && addr < 0xDE00) { memory[addr + 0x2000] = data; }
+}
+
+void gb::Memory::read_from_file(std::string path) {
+    std::ifstream bios_stream;
+    bios_stream.open(path);
+
+    if (! bios_stream.is_open()) {
+        std::cerr << "Error: failed to open " << path << "\n";
+        return;
+    }
+
+    byte addr = 0x0000;
+    for (byte opcode; ! bios_stream.eof(); bios_stream >> opcode) {
+        memory[addr++] = opcode;
+    }
 }

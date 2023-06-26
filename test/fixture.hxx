@@ -23,5 +23,7 @@ protected:
     gb::Memory memory;
     gb::CPU cpu;
 
-    CPUTest() : memory(bus), cpu(bus, memory) {}
+    CPUTest() : memory(bus), cpu(bus, memory) {
+        cpu.reset();
+    }
 };

@@ -114,6 +114,8 @@ namespace gb {
     LD_HL_SP_R8 = 0xF8,
 
     LDH_A8_A = 0xE0, LDH_A_A8 = 0xF0,
+    LD_AC_A  = 0xE2, LD_A_AC  = 0xF2,
+    LD_A16_A = 0xEA, LD_A_A16 = 0xFA,
 
     RLCA = 0x07, RRCA = 0x0F,
     RLA = 0x17, RRA = 0x1F,

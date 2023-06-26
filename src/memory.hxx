@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <string>
 
 #include "common.hxx"
 #include "bus.hxx"
@@ -46,6 +47,8 @@ namespace gb {
         void read_bus();
         void load_memory(const memory_t prog);
         memory_t dump_memory();
+
+        void read_from_file(std::string path);
 
     private:
         byte read(word addr);

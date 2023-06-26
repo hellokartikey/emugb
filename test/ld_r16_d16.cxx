@@ -8,7 +8,6 @@ using namespace gb;
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_BC_D16_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_BC_D16, 0xcd, 0xab
     };
@@ -25,7 +24,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_BC_D16_Test) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_DE_D16_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_DE_D16, 0xcd, 0xab
     };
@@ -42,7 +40,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_DE_D16_Test) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_HL_D16_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0xcd, 0xab
     };
@@ -59,7 +56,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_HL_D16_Test) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_SP_D16_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xcd, 0xab
     };
@@ -76,7 +72,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_SP_D16_Test) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_A16_SP_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xcd, 0xab,
         LD_A16_SP, 0x34, 0x12
@@ -96,7 +91,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_A16_SP_Test) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_BasicTest) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0x34, 0x12,
         LD_HL_SP_R8, 0x0b
@@ -119,7 +113,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_BasicTest) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_HalfCarryTest) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0x08, 0x00,
         LD_HL_SP_R8, 0x08
@@ -142,7 +135,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_HalfCarryTest) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_CarryTest) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0x80, 0x00,
         LD_HL_SP_R8, 0x80
@@ -165,7 +157,6 @@ TEST_F(Opcode_LD_R16_D16_Test, LD_HL_SP_R8_CarryTest) {
 
 TEST_F(Opcode_LD_R16_D16_Test, LD_SP_HL_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0xcd, 0xab,
         LD_SP_HL

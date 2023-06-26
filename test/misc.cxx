@@ -8,7 +8,6 @@ using namespace gb;
 
 TEST_F(OpcodeMiscTest, NOP_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         NOP
     };

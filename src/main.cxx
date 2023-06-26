@@ -7,19 +7,11 @@
 using namespace gb;
 
 int main() {
-    std::cout << "Hello World!\n";
-
     Bus bus;
     Memory memory(bus);
     CPU cpu(bus, memory);
 
-    /** start - inline program */
-    // gb::memory_t program = {
-    //     gb::LD_D_D8, 0x0A,
-    //     gb::HALT
-    // };
-    // memory.load_memory(program);
-    /** end - inline program */
+    memory.read_from_file("/home/arch/Desktop/gbc_bios.bin");
 
     cpu.execute();
 

@@ -8,7 +8,6 @@ using namespace gb;
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_B_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_B_D8, 0xab,
@@ -28,7 +27,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_B_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_C_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_C_D8, 0xab,
@@ -48,7 +46,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_C_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_D_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_D_D8, 0xab,
@@ -68,7 +65,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_D_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_E_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_E_D8, 0xab,
@@ -88,7 +84,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_E_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_H_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_AHL_H
@@ -107,7 +102,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_H_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_L_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_AHL_L
@@ -126,7 +120,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_L_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHL_A_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_A_D8, 0xab,
@@ -146,7 +139,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHL_A_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_ABC_A_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_BC_D16, 0x34, 0x12,
         LD_A_D8, 0xab,
@@ -166,7 +158,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_ABC_A_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_ADE_A_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_DE_D16, 0x34, 0x12,
         LD_A_D8, 0xab,
@@ -186,7 +177,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_ADE_A_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHLP_A_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_A_D8, 0xab,
@@ -207,7 +197,6 @@ TEST_F(Opcode_LD_AR16_Test, LD_AHLP_A_Test) {
 
 TEST_F(Opcode_LD_AR16_Test, LD_AHLM_A_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_HL_D16, 0x34, 0x12,
         LD_A_D8, 0xab,

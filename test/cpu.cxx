@@ -12,6 +12,8 @@ TEST_F(CPUTest, InitTest) {
         0x0000
     };
 
+    cpu.init();
+
     EXPECT_TRUE(gb::regs_iseq(cpu.get_regs(), out));
 
     EXPECT_EQ(cpu.get_current(), 0x00);

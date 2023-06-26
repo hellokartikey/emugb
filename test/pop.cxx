@@ -8,7 +8,6 @@ using namespace gb;
 
 TEST_F(Opcode_POP_Test, POP_BC_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xfe, 0xff,
         LD_BC_D16, 0xcd, 0xab,
@@ -31,7 +30,6 @@ TEST_F(Opcode_POP_Test, POP_BC_Test) {
 
 TEST_F(Opcode_POP_Test, POP_DE_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xfe, 0xff,
         LD_BC_D16, 0xcd, 0xab,
@@ -53,7 +51,6 @@ TEST_F(Opcode_POP_Test, POP_DE_Test) {
 
 TEST_F(Opcode_POP_Test, POP_HL_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xfe, 0xff,
         LD_BC_D16, 0xcd, 0xab,
@@ -75,7 +72,6 @@ TEST_F(Opcode_POP_Test, POP_HL_Test) {
 
 TEST_F(Opcode_POP_Test, POP_AF_Test) {
     /** start - inline program */
-    cpu.reset();
     memory_t program = {
         LD_SP_D16, 0xfe, 0xff,
         LD_BC_D16, 0xcd, 0xab,

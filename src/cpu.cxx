@@ -160,7 +160,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_B_E:   ld_r8_r8(regs.B, regs.E); break;
             case LD_B_H:   ld_r8_r8(regs.B, regs.H); break;
             case LD_B_L:   ld_r8_r8(regs.B, regs.L); break;
-            case LD_B_AHL: ld_r8_a16(regs.B, regs.HL); break;
+            case LD_B_AHL: ld_r8_ar16(regs.B, regs.HL); break;
             case LD_B_A:   ld_r8_r8(regs.B, regs.A); break;
 
             case LD_C_B:   ld_r8_r8(regs.C, regs.B); break;
@@ -169,7 +169,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_C_E:   ld_r8_r8(regs.C, regs.E); break;
             case LD_C_H:   ld_r8_r8(regs.C, regs.H); break;
             case LD_C_L:   ld_r8_r8(regs.C, regs.L); break;
-            case LD_C_AHL: ld_r8_a16(regs.C, regs.HL); break;
+            case LD_C_AHL: ld_r8_ar16(regs.C, regs.HL); break;
             case LD_C_A:   ld_r8_r8(regs.C, regs.A); break;
 
             case LD_D_B:   ld_r8_r8(regs.D, regs.B); break;
@@ -178,7 +178,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_D_E:   ld_r8_r8(regs.D, regs.E); break;
             case LD_D_H:   ld_r8_r8(regs.D, regs.H); break;
             case LD_D_L:   ld_r8_r8(regs.D, regs.L); break;
-            case LD_D_AHL: ld_r8_a16(regs.D, regs.HL); break;
+            case LD_D_AHL: ld_r8_ar16(regs.D, regs.HL); break;
             case LD_D_A:   ld_r8_r8(regs.D, regs.A); break;
 
             case LD_E_B:   ld_r8_r8(regs.E, regs.B); break;
@@ -187,7 +187,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_E_E:   ld_r8_r8(regs.E, regs.E); break;
             case LD_E_H:   ld_r8_r8(regs.E, regs.H); break;
             case LD_E_L:   ld_r8_r8(regs.E, regs.L); break;
-            case LD_E_AHL: ld_r8_a16(regs.E, regs.HL); break;
+            case LD_E_AHL: ld_r8_ar16(regs.E, regs.HL); break;
             case LD_E_A:   ld_r8_r8(regs.E, regs.A); break;
 
             case LD_H_B:   ld_r8_r8(regs.H, regs.B); break;
@@ -196,7 +196,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_H_E:   ld_r8_r8(regs.H, regs.E); break;
             case LD_H_H:   ld_r8_r8(regs.H, regs.H); break;
             case LD_H_L:   ld_r8_r8(regs.H, regs.L); break;
-            case LD_H_AHL: ld_r8_a16(regs.H, regs.HL); break;
+            case LD_H_AHL: ld_r8_ar16(regs.H, regs.HL); break;
             case LD_H_A:   ld_r8_r8(regs.H, regs.A); break;
 
             case LD_L_B:   ld_r8_r8(regs.L, regs.B); break;
@@ -205,7 +205,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_L_E:   ld_r8_r8(regs.L, regs.E); break;
             case LD_L_H:   ld_r8_r8(regs.L, regs.H); break;
             case LD_L_L:   ld_r8_r8(regs.L, regs.L); break;
-            case LD_L_AHL: ld_r8_a16(regs.L, regs.HL); break;
+            case LD_L_AHL: ld_r8_ar16(regs.L, regs.HL); break;
             case LD_L_A:   ld_r8_r8(regs.L, regs.A); break;
 
             case LD_AHL_B:   ld_a16_r8(regs.HL, regs.B); break;
@@ -220,18 +220,25 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case LD_AHLP_A:  ld_a16_r8(regs.HL++, regs.A); break;
             case LD_AHLM_A:  ld_a16_r8(regs.HL--, regs.A); break;
 
+            case LDH_A8_A:   ld_a8_r8(regs.A); break;
+            case LDH_A_A8:   ld_r8_a8(regs.A); break;
+            case LD_AC_A:    ld_ar8_r8(regs.C, regs.A); break;
+            case LD_A_AC:    ld_r8_ar8(regs.A, regs.C); break;
+            case LD_A16_A:   ld_a16_r8(regs.A); break;
+            case LD_A_A16:   ld_r8_a16(regs.A); break;
+
             case LD_A_B:   ld_r8_r8(regs.A, regs.B); break;
             case LD_A_C:   ld_r8_r8(regs.A, regs.C); break;
             case LD_A_D:   ld_r8_r8(regs.A, regs.D); break;
             case LD_A_E:   ld_r8_r8(regs.A, regs.E); break;
             case LD_A_H:   ld_r8_r8(regs.A, regs.H); break;
             case LD_A_L:   ld_r8_r8(regs.A, regs.L); break;
-            case LD_A_AHL: ld_r8_a16(regs.A, regs.HL); break;
+            case LD_A_AHL: ld_r8_ar16(regs.A, regs.HL); break;
             case LD_A_A:   ld_r8_r8(regs.A, regs.A); break;
-            case LD_A_ABC: ld_r8_a16(regs.A, regs.BC); break;
-            case LD_A_ADE: ld_r8_a16(regs.A, regs.DE); break;
-            case LD_A_AHLP: ld_r8_a16(regs.A, regs.HL++); break;
-            case LD_A_AHLM: ld_r8_a16(regs.A, regs.HL--); break;
+            case LD_A_ABC: ld_r8_ar16(regs.A, regs.BC); break;
+            case LD_A_ADE: ld_r8_ar16(regs.A, regs.DE); break;
+            case LD_A_AHLP: ld_r8_ar16(regs.A, regs.HL++); break;
+            case LD_A_AHLM: ld_r8_ar16(regs.A, regs.HL--); break;
 
             case PUSH_BC: push(regs.BC); break;
             case PUSH_DE: push(regs.DE); break;
@@ -243,7 +250,7 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case POP_HL: pop(regs.HL); break;
             case POP_AF: pop(regs.AF); break;
 
-            default: return;
+            default: std::cout << "Error: " << int(current) << "\n"; return;
         }
     }
 }
@@ -280,7 +287,7 @@ void gb::CPU::ld_r8_r8(gb::byte& r8_dst, gb::byte r8_src) {
     r8_dst = r8_src;
 }
 
-void gb::CPU::ld_r8_a16(gb::byte& r8, gb::word a16) {
+void gb::CPU::ld_r8_ar16(gb::byte& r8, gb::word a16) {
     read_memory(a16);
     r8 = current;
 }
@@ -343,4 +350,48 @@ void gb::CPU::pop(word& r16) {
     byte msb = current;
 
     r16 = (word(msb) << 8) + lsb;
+}
+
+void gb::CPU::ld_a8_r8(byte r8) {
+    fetch();
+    write_memory(0xff00 + current, r8);
+}
+
+void gb::CPU::ld_r8_a8(byte& r8) {
+    fetch();
+    read_memory(0xff00 + current);
+    r8 = current;
+}
+
+void gb::CPU::ld_ar8_r8(byte ar8, byte r8) {
+    write_memory(0xff00 + ar8, r8);
+}
+
+void gb::CPU::ld_r8_ar8(byte& r8, byte ar8) {
+    read_memory(0xff00 + ar8);
+    r8 = current;
+}
+
+void gb::CPU::ld_r8_a16(byte& r8) {
+    word addr;
+
+    fetch();
+    addr = current;
+
+    fetch();
+    addr += (word(current) << 8);
+
+    read_memory(addr);
+    r8 = current;
+}
+void gb::CPU::ld_a16_r8(byte r8) {
+    word addr;
+
+    fetch();
+    addr = current;
+
+    fetch();
+    addr += (word(current) << 8);
+
+    write_memory(addr, r8);
 }

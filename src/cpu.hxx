@@ -6,6 +6,8 @@
 
 namespace gb {
     class CPU {
+        registers_t regs;
+
         Bus& bus;
         Memory& memory;
 
@@ -20,15 +22,19 @@ namespace gb {
         void ld_r8_d8(byte& r8);
         void ld_a16_d8(word& a16);
         void ld_r8_r8(byte& r8_dst, byte r8_src);
-        void ld_r8_a16(byte& r8, word a16);
+        void ld_r8_ar16(byte& r8, word a16);
         void ld_a16_r8(word a16, byte r8);
         void ld_a16_r16(word& r16);
+        void ld_a8_r8(byte r8);
+        void ld_r8_a8(byte& r8);
+        void ld_ar8_r8(byte ar8, byte r8);
+        void ld_r8_ar8(byte& r8, byte ar8);
+        void ld_r8_a16(byte& r8);
+        void ld_a16_r8(byte r8);
         void push(word r16);
         void pop(word& r16);
 
     public:
-        registers_t regs;
-
         CPU(Bus& bus, Memory& memory);
 
         void read_memory(word addr);
