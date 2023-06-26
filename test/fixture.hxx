@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "cpu/bus.hxx"
-#include "cpu/memory.hxx"
-#include "cpu/cpu.hxx"
+#include "bus.hxx"
+#include "memory.hxx"
+#include "cpu.hxx"
 
 class BusTest : public testing::Test {
 protected:

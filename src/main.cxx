@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "cpu/cpu.hxx"
-#include "cpu/bus.hxx"
-#include "cpu/memory.hxx"
+#include "cpu.hxx"
+#include "bus.hxx"
+#include "memory.hxx"
 
 using namespace gb;
 

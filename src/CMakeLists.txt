@@ -6,6 +6,20 @@ target_sources(
 target_link_libraries(
   ${BUILD_TARGET}
   PUBLIC cpu
+  PUBLIC gbc
 )
 
-add_subdirectory(cpu)
+add_library(
+  cpu
+  common.cxx
+  bus.cxx
+  cpu.cxx
+  memory.cxx
+)
+
+add_library(
+  gbc
+  joypad.cxx
+  screen.cxx
+  speaker.cxx
+)
