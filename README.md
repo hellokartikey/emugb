@@ -16,3 +16,30 @@ Registers:
 | B | C |
 | D | E |
 | H | L |
+
+## Build
+
+Build using CMake
+
+```bash
+cmake -B build
+cmake --build build/
+```
+
+### Running
+
+```bash
+./build/emugb
+```
+
+### Testing
+
+1. Using CTest
+```bash
+ctest --test-dir ./build/test
+```
+
+2. Using GTest
+```bash
+./build/test/testgb
+```
