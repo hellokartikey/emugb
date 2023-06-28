@@ -250,9 +250,28 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case POP_HL: pop(regs.HL); break;
             case POP_AF: pop(regs.AF); break;
 
-            default: std::cout << "Error: " << int(current) << "\n"; return;
+            case INC_BC: inc(regs.BC); break;
+            case INC_DE: inc(regs.DE); break;
+            case INC_HL: inc(regs.HL); break;
+            case INC_SP: inc(regs.SP); break;
+
+            case RST_00: rst(0x0000); break;
+            case RST_10: rst(0x0010); break;
+            case RST_20: rst(0x0020); break;
+            case RST_30: rst(0x0030); break;
+            case RST_08: rst(0x0008); break;
+            case RST_18: rst(0x0018); break;
+            case RST_28: rst(0x0028); break;
+            case RST_38: rst(0x0038); break;
+
+            default: unrecognized(); return;
         }
     }
+}
+
+void gb::CPU::unrecognized() {
+    std::cout << "Unrecognized Opcode: ";
+    std::cout << std::hex << int(current) << std::dec << "\n";
 }
 
 void gb::CPU::nop() {
@@ -394,4 +413,16 @@ void gb::CPU::ld_a16_r8(byte r8) {
     addr += (word(current) << 8);
 
     write_memory(addr, r8);
+}
+
+void gb::CPU::inc(byte& r8) {}
+
+void gb::CPU::inc(word& r16) {
+    cycle();
+    r16++;
+}
+
+void gb::CPU::rst(word addr) {
+    push(regs.PC);
+    regs.PC = addr;
 }

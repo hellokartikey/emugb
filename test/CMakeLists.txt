@@ -25,6 +25,8 @@ target_sources(
   PRIVATE ld_a_a8.cxx
   PRIVATE push.cxx
   PRIVATE pop.cxx
+  PRIVATE inc.cxx
+  PRIVATE rst.cxx
 )
 
 target_link_libraries(

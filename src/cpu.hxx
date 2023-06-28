@@ -14,6 +14,7 @@ namespace gb {
         byte current;
         cycles_t cycles;
 
+        void unrecognized();
         void nop();
         void stop();
         void ld_r16_d16(word& r16);
@@ -33,6 +34,9 @@ namespace gb {
         void ld_a16_r8(byte r8);
         void push(word r16);
         void pop(word& r16);
+        void inc(byte& r8);
+        void inc(word& r16);
+        void rst(word addr);
 
     public:
         CPU(Bus& bus, Memory& memory);
