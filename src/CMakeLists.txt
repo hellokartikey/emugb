@@ -5,7 +5,7 @@ target_sources(
 
 target_link_libraries(
   ${BUILD_TARGET}
-  PUBLIC gbc
+  gbc
 )
 
 add_library(
@@ -17,4 +17,9 @@ add_library(
   joypad.cxx
   screen.cxx
   speaker.cxx
+)
+
+target_link_libraries(
+  gbc
+  fmt::fmt
 )

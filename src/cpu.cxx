@@ -1,5 +1,7 @@
 #include "cpu.hxx"
 
+#include <fmt/core.h>
+
 gb::CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
     reset();
     init();
@@ -14,32 +16,22 @@ void gb::CPU::set_regs(gb::registers_t regs) {
 }
 
 void gb::CPU::print_status() {
-    std::cout << std::hex;
-    std::cout << "A: " << int(regs.A) << "\t";
-    std::cout << "F: " << int(regs.F) << "\t";
-    std::cout << "z n h c" << "\n";
 
-    std::cout << "B: " << int(regs.B) << "\t";
-    std::cout << "C: " << int(regs.C) << "\t";
-    std::cout << bool(regs.z) << " ";
-    std::cout << bool(regs.n) << " ";
-    std::cout << bool(regs.h) << " ";
-    std::cout << bool(regs.c) << "\n";
+    fmt::print("A: {:02x}\tF: {:02x}\t", regs.A, regs.F);
+    fmt::print("z n h c\n");
 
-    std::cout << "D: " << int(regs.D) << "\t";
-    std::cout << "E: " << int(regs.E) << "\n";
+    fmt::print("B: {:02x}\tC: {:2x}\t", regs.B, regs.C);
+    fmt::print("{} {} {} {}\n", +regs.z, +regs.n, +regs.h, +regs.c);
 
-    std::cout << "H: " << int(regs.H) << "\t";
-    std::cout << "L: " << int(regs.L) << "\n";
+    fmt::print("D: {:02x}\tE: {:2x}\n", regs.D, regs.E);
 
-    std::cout << "PC: " << int(regs.PC) << "\n";
-    std::cout << "SP: " << int(regs.SP) << "\n";
+    fmt::print("H: {:02x}\tL: {:2x}\n", regs.H, regs.L);
 
-    std::cout << "cycles: " << int(cycles) << "\n";
-    std::cout << "current: " << int(current) << "\n";
+    fmt::print("PC: {:04x}\n", regs.PC);
+    fmt::print("SP: {:04x}\n", regs.SP);
 
-    std::cout << std::dec;
-    std::cout << std::endl;
+    fmt::print("cycles: {}\n", cycles);
+    fmt::print("current: {:02x}\n", current);
 }
 
 gb::cycles_t gb::CPU::get_cycles() {
@@ -270,12 +262,11 @@ void gb::CPU::execute(gb::cycles_t steps) {
 }
 
 void gb::CPU::unrecognized() {
-    std::cout << "Unrecognized Opcode: ";
-    std::cout << std::hex << int(current) << std::dec << "\n";
+    fmt::print("Unrecognized Opcode: {:02x}\n", current);
 }
 
 void gb::CPU::nop() {
-    std::cout << "NOP\n";
+    fmt::print("NOP\n");
     return;
 }
 
@@ -358,8 +349,8 @@ void gb::CPU::push(word r16) {
 
     cycle();
 
-    write_memory(regs.SP--, msb);
-    write_memory(regs.SP--, lsb);
+    write_memory(--regs.SP, msb);
+    write_memory(--regs.SP, lsb);
 }
 
 void gb::CPU::pop(word& r16) {

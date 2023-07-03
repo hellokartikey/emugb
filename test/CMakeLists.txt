@@ -32,6 +32,7 @@ target_sources(
 target_link_libraries(
   ${TEST_TARGET}
   GTest::gtest_main
+  fmt::fmt
   gbc
 )
 
