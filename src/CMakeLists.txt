@@ -3,11 +3,6 @@ target_sources(
   PRIVATE main.cxx
 )
 
-target_link_libraries(
-  ${BUILD_TARGET}
-  gbc
-)
-
 add_library(
   gbc
   common.cxx
@@ -17,6 +12,12 @@ add_library(
   joypad.cxx
   screen.cxx
   speaker.cxx
+)
+
+target_link_libraries(
+  ${BUILD_TARGET}
+  fmt::fmt
+  gbc
 )
 
 target_link_libraries(

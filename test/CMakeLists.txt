@@ -1,9 +1,3 @@
-enable_testing()
-
-add_executable(
-  ${TEST_TARGET}
-)
-
 target_sources(
   ${TEST_TARGET}
   PRIVATE fixture.cxx
@@ -40,6 +34,3 @@ target_include_directories(
   ${TEST_TARGET}
   PUBLIC ../src
 )
-
-include(GoogleTest)
-gtest_discover_tests(${TEST_TARGET})
