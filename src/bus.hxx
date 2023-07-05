@@ -2,26 +2,25 @@
 
 #include "common.hxx"
 
-
 namespace gb {
-    class Bus {
-        byte data;
-        word addr;
+class Bus {
+  byte data;
+  word addr;
 
-        bool read;
+  bool read;
 
-    public:
-        Bus();
+ public:
+  Bus();
 
-        bool read_signal();
+  bool read_signal();
 
-        void set_write();
-        void set_read();
+  void set_write();
+  void set_read();
 
-        void write_addr(word addr);
-        word read_addr();
+  void write_addr(word addr);
+  word read_addr();
 
-        void write_data(byte data);
-        byte read_data();
-    };
-}
+  void write_data(byte data);
+  byte read_data();
+};
+}  // namespace gb
