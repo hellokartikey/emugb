@@ -16,6 +16,7 @@ add_library(
 
 target_link_libraries(
   ${BUILD_TARGET}
+  SDL2::SDL2main
   fmt::fmt
   gbc
 )

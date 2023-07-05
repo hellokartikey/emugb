@@ -20,7 +20,9 @@ target_sources(
   PRIVATE push.cxx
   PRIVATE pop.cxx
   PRIVATE inc.cxx
+  PRIVATE dec.cxx
   PRIVATE rst.cxx
+  PRIVATE rotates.cxx
 )
 
 target_link_libraries(

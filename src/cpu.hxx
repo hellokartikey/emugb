@@ -36,7 +36,15 @@ namespace gb {
         void pop(word& r16);
         void inc(byte& r8);
         void inc(word& r16);
+        void inc();
+        void dec(byte& r8);
+        void dec(word& r16);
+        void dec();
         void rst(word addr);
+        void rlca();
+        void rrca();
+        void rla();
+        void rra();
 
     public:
         CPU(Bus& bus, Memory& memory);

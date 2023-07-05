@@ -53,6 +53,7 @@ namespace gb {
     bool regs_iseq(registers_t regs1, registers_t regs2);
     bool carry_add(byte op1, byte op2);
     bool half_carry_add(byte op1, byte op2);
+    bool half_carry_sub(byte op1, byte op2);
 
     byte rand_byte();
     word rand_word();

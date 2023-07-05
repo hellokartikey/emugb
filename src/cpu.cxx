@@ -1,6 +1,9 @@
-#include "cpu.hxx"
+#include <chrono>
+#include <thread>
 
 #include <fmt/core.h>
+
+#include "cpu.hxx"
 
 gb::CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
     reset();
@@ -98,6 +101,9 @@ void gb::CPU::init() {
 
 void gb::CPU::cycle() {
     // For timing
+    // std::cout << "\033[2J\033[1;1H";
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // print_status();
     cycles++;
 }
 
@@ -129,13 +135,13 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case NOP: nop(); break;
             case STOP: stop(); break;
 
-            case LD_BC_D16: ld_r16_d16(regs.BC); break;
-            case LD_DE_D16: ld_r16_d16(regs.DE); break;
-            case LD_HL_D16: ld_r16_d16(regs.HL); break;
-            case LD_SP_D16: ld_r16_d16(regs.SP); break;
-            case LD_A16_SP: ld_a16_r16(regs.SP); break;
+            case LD_BC_D16:   ld_r16_d16(regs.BC); break;
+            case LD_DE_D16:   ld_r16_d16(regs.DE); break;
+            case LD_HL_D16:   ld_r16_d16(regs.HL); break;
+            case LD_SP_D16:   ld_r16_d16(regs.SP); break;
+            case LD_A16_SP:   ld_a16_r16(regs.SP); break;
             case LD_HL_SP_R8: ld_r16_r16_r8(regs.HL, regs.SP);
-            case LD_SP_HL:  ld_r16_r16(regs.SP, regs.HL); break;
+            case LD_SP_HL:    ld_r16_r16(regs.SP, regs.HL); break;
 
             case LD_B_D8:   ld_r8_d8(regs.B); break;
             case LD_C_D8:   ld_r8_d8(regs.C); break;
@@ -247,6 +253,29 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case INC_HL: inc(regs.HL); break;
             case INC_SP: inc(regs.SP); break;
 
+            case INC_B:   inc(regs.A); break;
+            case INC_C:   inc(regs.A); break;
+            case INC_D:   inc(regs.A); break;
+            case INC_E:   inc(regs.A); break;
+            case INC_H:   inc(regs.A); break;
+            case INC_L:   inc(regs.A); break;
+            case INC_A:   inc(regs.A); break;
+            case INC_AHL: inc(); break;
+
+            case DEC_BC: dec(regs.BC); break;
+            case DEC_DE: dec(regs.DE); break;
+            case DEC_HL: dec(regs.HL); break;
+            case DEC_SP: dec(regs.SP); break;
+
+            case DEC_B:   dec(regs.A); break;
+            case DEC_C:   dec(regs.A); break;
+            case DEC_D:   dec(regs.A); break;
+            case DEC_E:   dec(regs.A); break;
+            case DEC_H:   dec(regs.A); break;
+            case DEC_L:   dec(regs.A); break;
+            case DEC_A:   dec(regs.A); break;
+            case DEC_AHL: dec(); break;
+
             case RST_00: rst(0x0000); break;
             case RST_10: rst(0x0010); break;
             case RST_20: rst(0x0020); break;
@@ -255,6 +284,11 @@ void gb::CPU::execute(gb::cycles_t steps) {
             case RST_18: rst(0x0018); break;
             case RST_28: rst(0x0028); break;
             case RST_38: rst(0x0038); break;
+
+            case RLCA: rlca(); break;
+            case RRCA: rrca(); break;
+            case RLA : rla(); break;
+            case RRA : rra(); break;
 
             default: unrecognized(); return;
         }
@@ -266,7 +300,7 @@ void gb::CPU::unrecognized() {
 }
 
 void gb::CPU::nop() {
-    fmt::print("NOP\n");
+    // fmt::print("NOP\n");
     return;
 }
 
@@ -354,9 +388,9 @@ void gb::CPU::push(word r16) {
 }
 
 void gb::CPU::pop(word& r16) {
-    read_memory(++regs.SP);
+    read_memory(regs.SP++);
     byte lsb = current;
-    read_memory(++regs.SP);
+    read_memory(regs.SP++);
     byte msb = current;
 
     r16 = (word(msb) << 8) + lsb;
@@ -406,14 +440,69 @@ void gb::CPU::ld_a16_r8(byte r8) {
     write_memory(addr, r8);
 }
 
-void gb::CPU::inc(byte& r8) {}
+void gb::CPU::inc(byte& r8) {
+    regs.h = half_carry_add(r8, 0x01);
+    r8++;
+    regs.z = (r8 == 0);
+    regs.n = 0;
+}
 
 void gb::CPU::inc(word& r16) {
     cycle();
     r16++;
 }
 
+void gb::CPU::inc() {}
+
+void gb::CPU::dec(byte& r8) {
+    regs.h = half_carry_sub(r8, 0x01);
+    r8--;
+    regs.z = (r8 == 0);
+    regs.n = 1;
+}
+
+void gb::CPU::dec(word& r16) {
+    cycle();
+    r16--;
+}
+
+void gb::CPU::dec() {}
+
 void gb::CPU::rst(word addr) {
     push(regs.PC);
     regs.PC = addr;
+}
+
+void gb::CPU::rlca() {
+    regs.c = (regs.A >> 7);
+    regs.n = 0;
+    regs.h = 0;
+    regs.A = (regs.A << 1);
+    regs.z = (regs.A == 0);
+}
+
+void gb::CPU::rrca() {
+    regs.c = (regs.A & 0x01);
+    regs.n = 0;
+    regs.h = 0;
+    regs.A = (regs.A >> 1) + (regs.A << 7);
+    regs.z = (regs.A == 0);
+}
+
+void gb::CPU::rla() {
+    byte a = (regs.A << 1) + regs.c;
+    regs.c = (regs.A >> 7);
+    regs.z = (regs.A == 0);
+    regs.n = 0;
+    regs.h = 0;
+    regs.A = a;
+}
+
+void gb::CPU::rra() {
+    byte a = (regs.A >> 1) + (+regs.c << 7);
+    regs.c = (regs.A & 0x01);
+    regs.A = a;
+    regs.n = 0;
+    regs.h = 0;
+    regs.z = (regs.A == 0);
 }

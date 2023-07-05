@@ -26,3 +26,7 @@ bool gb::carry_add(gb::byte op1, gb::byte op2) {
 bool gb::half_carry_add(gb::byte op1, gb::byte op2) {
     return (op1 & 0x08) * (op2 & 0x08);
 }
+
+bool gb::half_carry_sub(gb::byte op1, gb::byte op2) {
+    return ((op1 & 0x08) == 0) * ((op2 & 0x08) != 0);
+}

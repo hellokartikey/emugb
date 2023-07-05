@@ -22,8 +22,8 @@ TEST_F(Opcode_RST_Test, RST_00_Test) {
 
     EXPECT_EQ(regs.PC, 0x0000);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -43,8 +43,8 @@ TEST_F(Opcode_RST_Test, RST_08_Test) {
 
     EXPECT_EQ(regs.PC, 0x0008);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -64,8 +64,8 @@ TEST_F(Opcode_RST_Test, RST_10_Test) {
 
     EXPECT_EQ(regs.PC, 0x0010);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -85,8 +85,8 @@ TEST_F(Opcode_RST_Test, RST_18_Test) {
 
     EXPECT_EQ(regs.PC, 0x0018);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -106,8 +106,8 @@ TEST_F(Opcode_RST_Test, RST_20_Test) {
 
     EXPECT_EQ(regs.PC, 0x0020);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -127,8 +127,8 @@ TEST_F(Opcode_RST_Test, RST_28_Test) {
 
     EXPECT_EQ(regs.PC, 0x0028);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -148,8 +148,8 @@ TEST_F(Opcode_RST_Test, RST_30_Test) {
 
     EXPECT_EQ(regs.PC, 0x0030);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
 
@@ -169,7 +169,7 @@ TEST_F(Opcode_RST_Test, RST_38_Test) {
 
     EXPECT_EQ(regs.PC, 0x0038);
     EXPECT_EQ(regs.SP, 0xfffc);
-    EXPECT_EQ(mem[regs.SP+1], 0x04);
-    EXPECT_EQ(mem[regs.SP+2], 0x00);
+    EXPECT_EQ(mem[regs.SP], 0x04);
+    EXPECT_EQ(mem[regs.SP+1], 0x00);
     EXPECT_EQ(steps, cpu.get_cycles());
 }
