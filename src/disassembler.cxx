@@ -234,6 +234,72 @@ std::string Disassembler::get_instruction(word& addr) {
                                  memory[addr++], memory[addr++], tab);
       break;
 
+    case LD_BC_D16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD BC, {1:02x}{0:02}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case LD_DE_D16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD DE, {1:02x}{0:02}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case LD_HL_D16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD HL, {1:02x}{0:02}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case LD_SP_D16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD SP, {1:02x}{0:02}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case LD_A16_SP:
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD {1:02x}{0:02}, SP",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case LD_SP_HL:
+      instruction += tab + fmt::format("LD SP, HL");
+      break;
+    case LD_HL_SP_R8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD HL, SP + {0:02x}", memory[addr++], tab);
+      break;
+
+    case RLCA:
+      instruction += tab + fmt::format("RLCA");
+      break;
+    case RLA:
+      instruction += tab + fmt::format("RLA");
+      break;
+    case RRCA:
+      instruction += tab + fmt::format("RRCA");
+      break;
+    case RRA:
+      instruction += tab + fmt::format("RRA");
+      break;
+
+    case RST_00:
+      instruction += tab + fmt::format("RST 00H");
+      break;
+    case RST_10:
+      instruction += tab + fmt::format("RST 10H");
+      break;
+    case RST_20:
+      instruction += tab + fmt::format("RST 20H");
+      break;
+    case RST_30:
+      instruction += tab + fmt::format("RST 30H");
+      break;
+    case RST_08:
+      instruction += tab + fmt::format("RST 08H");
+      break;
+    case RST_18:
+      instruction += tab + fmt::format("RST 18H");
+      break;
+    case RST_28:
+      instruction += tab + fmt::format("RST 28H");
+      break;
+    case RST_38:
+      instruction += tab + fmt::format("RST 38H");
+      break;
+
     case INC_BC:
       instruction += tab + fmt::format("INC BC");
       break;

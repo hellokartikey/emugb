@@ -10,13 +10,18 @@ GameBoy::GameBoy()
     : memory(bus), cpu(bus, memory), disassembler(memory.connect_memory()) {}
 
 void GameBoy::run() {
+  using namespace std::chrono_literals;
   while (1) {
     fmt::print("\033[2J\033[1;1H");
-    memory.print_memory(0x0000, 4);
+    // std::this_thread::sleep_for(100ms);
+    cpu.execute();
+    memory.print_memory(cpu.get_regs().PC & 0xfff0, 5);
+    fmt::print("{:-^53}\n", "");
     cpu.print_status();
-    disassembler.disassemble(cpu.get_regs().PC, 10);
-    cpu.execute(1);
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    fmt::print("{:-^53}\n", "");
+    disassembler.disassemble(cpu.get_regs().PC, 7);
+    fmt::print("{:-^53}\n", "");
+    memory.print_memory(0xffa0, 6);
   }
 }
 

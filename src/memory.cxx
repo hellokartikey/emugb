@@ -61,6 +61,9 @@ void Memory::print_memory(word start, int lines) {
 
   word begin = start & 0xfff0;
   for (word addr = begin; addr < begin + (lines * 0x0010); addr++) {
+    if (addr >= 0xffff) {
+      break;
+    }
     if ((addr & 0x000f) == 0x0000) {
       fmt::print("\n{:04x}  ", addr);
     }

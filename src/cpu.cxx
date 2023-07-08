@@ -13,18 +13,15 @@ registers_t CPU::get_regs() { return regs; }
 void CPU::set_regs(registers_t regs) { this->regs = regs; }
 
 void CPU::print_status() {
-  fmt::print("A: {:02x}\tF: {:02x}\t", regs.A, regs.F);
+  fmt::print("A - {:02x}\tF - {:02x}\t", regs.A, regs.F);
   fmt::print("z n h c\n");
 
-  fmt::print("B: {:02x}\tC: {:2x}\t", regs.B, regs.C);
+  fmt::print("B - {:02x}\tC - {:02x}\t", regs.B, regs.C);
   fmt::print("{} {} {} {}\n", +regs.z, +regs.n, +regs.h, +regs.c);
 
-  fmt::print("D: {:02x}\tE: {:2x}\n", regs.D, regs.E);
+  fmt::print("D - {:02x}\tE - {:02x}\tPC - {:04x}\n", regs.D, regs.E, regs.PC);
 
-  fmt::print("H: {:02x}\tL: {:2x}\n", regs.H, regs.L);
-
-  fmt::print("PC: {:04x}\n", regs.PC);
-  fmt::print("SP: {:04x}\n", regs.SP);
+  fmt::print("H - {:02x}\tL - {:02x}\tSP - {:04x}\n", regs.H, regs.L, regs.SP);
 
   fmt::print("cycles: {}\n", cycles);
   fmt::print("current: {:02x}\n", current);
