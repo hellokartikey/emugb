@@ -83,8 +83,11 @@ class Memory {
   void read_bus();
   void load_memory(const memory_t prog);
   memory_t dump_memory();
+  memory_t& connect_memory();
 
   void read_from_file(std::string path);
+
+  void print_memory(word start = 0x0000, int size = 3);
 
  private:
   byte read(word addr);

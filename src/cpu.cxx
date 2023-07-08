@@ -2,9 +2,6 @@
 
 #include <fmt/core.h>
 
-#include <chrono>
-#include <thread>
-
 namespace gb {
 CPU::CPU(Bus& bus, Memory& memory) : bus(bus), memory(memory) {
   reset();
@@ -93,9 +90,6 @@ void CPU::init() {
 
 void CPU::cycle() {
   // For timing
-  // std::cout << "\033[2J\033[1;1H";
-  // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  // print_status();
   cycles++;
 }
 
@@ -119,7 +113,8 @@ void CPU::write_memory(word addr, byte data) {
 void CPU::fetch() { read_memory(regs.PC++); }
 
 void CPU::execute(cycles_t steps) {
-  while (steps > 0 ? cycles < steps : true) {
+  cycles_t before = cycles;
+  while (steps > 0 ? (cycles - before) < steps : true) {
     fetch();
     switch (current) {
       case NOP:
@@ -688,6 +683,7 @@ void CPU::ld_r8_a16(byte& r8) {
   read_memory(addr);
   r8 = current;
 }
+
 void CPU::ld_a16_r8(byte r8) {
   word addr;
 

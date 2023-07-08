@@ -1,19 +1,20 @@
+#include <fmt/core.h>
+
 #include <iostream>
 
 #include "bus.hxx"
 #include "cpu.hxx"
+#include "disassembler.hxx"
+#include "gbc.hxx"
+#include "joypad.hxx"
 #include "memory.hxx"
+#include "screen.hxx"
+#include "speaker.hxx"
 
 int main() {
-  gb::Bus bus;
-  gb::Memory memory(bus);
-  gb::CPU cpu(bus, memory);
-
-  memory.read_from_file("/home/arch/Desktop/gbc_bios.bin");
-
-  cpu.execute();
-
-  cpu.print_status();
+  gb::GameBoy gbc;
+  gbc.read_rom("/home/arch/Desktop/gbc_bios.bin");
+  gbc.run();
 
   return 0;
 }

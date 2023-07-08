@@ -5,10 +5,12 @@ target_sources(
 
 add_library(
   gbc
+  gbc.cxx
   common.cxx
   bus.cxx
   cpu.cxx
   memory.cxx
+  disassembler.cxx
   joypad.cxx
   screen.cxx
   speaker.cxx
