@@ -13,8 +13,10 @@
 
 int main() {
   gb::GameBoy gbc;
-  gbc.read_rom("/home/arch/Desktop/gbc_bios.bin");
-  gbc.run();
+  // gbc.read_rom("/home/arch/Desktop/gbc_bios.bin");
+  // gbc.run();
+
+  gbc.shell();
 
   return 0;
 }

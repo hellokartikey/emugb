@@ -549,6 +549,7 @@ void CPU::execute(cycles_t steps) {
 
       default:
         unrecognized();
+        exit(1);
         return;
     }
   }

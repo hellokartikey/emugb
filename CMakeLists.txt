@@ -18,6 +18,9 @@ endif()
 
 include(cmake/clang-format.cmake)
 
+include(FetchContent)
+Set(FETCHCONTENT_QUIET FALSE)
+
 include(cmake/fmt.cmake)
 include(cmake/sdl2.cmake)
 include(cmake/google-test.cmake)

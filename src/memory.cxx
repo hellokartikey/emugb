@@ -47,7 +47,7 @@ void Memory::read_from_file(std::string path) {
     return;
   }
 
-  byte addr = 0x0000;
+  word addr = 0x0000;
   for (byte opcode; !bios_stream.eof(); bios_stream >> opcode) {
     memory[addr++] = opcode;
   }

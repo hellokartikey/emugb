@@ -235,23 +235,23 @@ std::string Disassembler::get_instruction(word& addr) {
       break;
 
     case LD_BC_D16:
-      instruction += fmt::format("{1:02x} {0:02x}{2}LD BC, {1:02x}{0:02}",
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD BC, {0:02x}{1:02}",
                                  memory[addr++], memory[addr++], tab);
       break;
     case LD_DE_D16:
-      instruction += fmt::format("{1:02x} {0:02x}{2}LD DE, {1:02x}{0:02}",
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD DE, {0:02x}{1:02}",
                                  memory[addr++], memory[addr++], tab);
       break;
     case LD_HL_D16:
-      instruction += fmt::format("{1:02x} {0:02x}{2}LD HL, {1:02x}{0:02}",
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD HL, {0:02x}{1:02}",
                                  memory[addr++], memory[addr++], tab);
       break;
     case LD_SP_D16:
-      instruction += fmt::format("{1:02x} {0:02x}{2}LD SP, {1:02x}{0:02}",
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD SP, {0:02x}{1:02x}",
                                  memory[addr++], memory[addr++], tab);
       break;
     case LD_A16_SP:
-      instruction += fmt::format("{1:02x} {0:02x}{2}LD {1:02x}{0:02}, SP",
+      instruction += fmt::format("{1:02x} {0:02x}{2}LD {0:02x}{1:02x}, SP",
                                  memory[addr++], memory[addr++], tab);
       break;
     case LD_SP_HL:
@@ -260,6 +260,39 @@ std::string Disassembler::get_instruction(word& addr) {
     case LD_HL_SP_R8:
       instruction +=
           fmt::format("{0:02x}{1}LD HL, SP + {0:02x}", memory[addr++], tab);
+      break;
+
+    case LD_B_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD B, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_C_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD C, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_D_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD D, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_E_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD E, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_H_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD H, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_L_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD L, {0:02x}", memory[addr++], tab);
+      break;
+    case LD_AHL_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD (HL), {0:02x}", memory[addr++], tab);
+      break;
+    case LD_A_D8:
+      instruction +=
+          fmt::format("{0:02x}{1}LD A, {0:02x}", memory[addr++], tab);
       break;
 
     case RLCA:
@@ -311,6 +344,30 @@ std::string Disassembler::get_instruction(word& addr) {
       break;
     case INC_SP:
       instruction += tab + fmt::format("INC SP");
+      break;
+
+    case JP_NZ_A16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}JP NZ, {0:02x}{1:02x}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case JP_NC_A16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}JP NC, {0:02x}{1:02x}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case JP_Z_A16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}JP Z, {0:02x}{1:02x}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case JP_C_A16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}JP C, {0:02x}{1:02x}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case JP_A16:
+      instruction += fmt::format("{1:02x} {0:02x}{2}JP {0:02x}{1:02x}",
+                                 memory[addr++], memory[addr++], tab);
+      break;
+    case JP_HL:
+      instruction += tab + fmt::format("JP HL");
       break;
 
     default:
