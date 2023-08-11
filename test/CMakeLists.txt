@@ -23,6 +23,7 @@ target_sources(
   PRIVATE dec.cxx
   PRIVATE rst.cxx
   PRIVATE rotates.cxx
+  PRIVATE jp.cxx
 )
 
 target_link_libraries(

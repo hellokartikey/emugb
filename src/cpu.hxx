@@ -45,6 +45,12 @@ class CPU {
   void rrca();
   void rla();
   void rra();
+  void jp();
+  void jp_ar16(word ar16);
+  void jp_nz();
+  void jp_nc();
+  void jp_z();
+  void jp_c();
 
  public:
   CPU(Bus& bus, Memory& memory);

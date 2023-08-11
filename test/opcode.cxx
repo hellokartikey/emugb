@@ -138,3 +138,12 @@ TEST(OpcodeTest, POP_Test) {
   EXPECT_EQ(POP_HL, 0xe1);
   EXPECT_EQ(POP_AF, 0xf1);
 }
+
+TEST(OpcodeTest, JP_Test) {
+  EXPECT_EQ(JP_NZ_A16, 0xC2);
+  EXPECT_EQ(JP_NC_A16, 0xD2);
+  EXPECT_EQ(JP_A16, 0xC3);
+  EXPECT_EQ(JP_Z_A16, 0xCA);
+  EXPECT_EQ(JP_C_A16, 0xDA);
+  EXPECT_EQ(JP_AHL, 0xE9);
+}

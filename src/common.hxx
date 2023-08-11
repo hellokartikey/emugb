@@ -162,7 +162,7 @@ constexpr byte
 
     JR_NZ_R8 = 0x20, JR_Z_R8 = 0x28, JR_NC_R8 = 0x30, JR_C_R8 = 0x38,
     JP_NZ_A16 = 0xC2, JP_Z_A16 = 0xCA, JR_R8 = 0x18, JP_A16 = 0xC3,
-    JP_NC_A16 = 0xD2, JP_C_A16 = 0xDA, JP_HL = 0xE9,
+    JP_NC_A16 = 0xD2, JP_C_A16 = 0xDA, JP_AHL = 0xE9,
 
     CALL_NZ_A16 = 0xC4, CALL_Z_A16 = 0xCC, CALL_NC_A16 = 0xD4,
     CALL_C_A16 = 0xDC, CALL_A16 = 0xCD,

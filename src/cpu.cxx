@@ -547,6 +547,25 @@ void CPU::execute(cycles_t steps) {
         rra();
         break;
 
+      case JP_A16:
+        jp();
+        break;
+      case JP_AHL:
+        jp_ar16(regs.HL);
+        break;
+      case JP_NZ_A16:
+        jp_nz();
+        break;
+      case JP_NC_A16:
+        jp_nc();
+        break;
+      case JP_Z_A16:
+        jp_z();
+        break;
+      case JP_C_A16:
+        jp_c();
+        break;
+
       default:
         unrecognized();
         exit(1);
@@ -759,5 +778,78 @@ void CPU::rra() {
   regs.n = 0;
   regs.h = 0;
   regs.z = (regs.A == 0);
+}
+
+void CPU::jp() {
+  word addr = 0x0000;
+  fetch();
+  addr = current;
+  fetch();
+  addr += (word(current) << 8);
+
+  cycle();
+  regs.PC = addr;
+  fetch();
+}
+
+void CPU::jp_ar16(word ar16) {
+  regs.PC = ar16;
+  fetch();
+}
+
+void CPU::jp_nz() {
+  word addr = 0x0000;
+  fetch();
+  addr = current;
+  fetch();
+  addr += (word(current) << 8);
+
+  if (regs.z == 0) {
+    cycle();
+    regs.PC = addr;
+  }
+  fetch();
+}
+
+void CPU::jp_nc() {
+  word addr = 0x0000;
+  fetch();
+  addr = current;
+  fetch();
+  addr += (word(current) << 8);
+
+  if (regs.c == 0) {
+    cycle();
+    regs.PC = addr;
+  }
+  fetch();
+}
+
+void CPU::jp_z() {
+  word addr = 0x0000;
+  fetch();
+  addr = current;
+  fetch();
+  addr += (word(current) << 8);
+
+  if (regs.z == 1) {
+    cycle();
+    regs.PC = addr;
+  }
+  fetch();
+}
+
+void CPU::jp_c() {
+  word addr = 0x0000;
+  fetch();
+  addr = current;
+  fetch();
+  addr += (word(current) << 8);
+
+  if (regs.c == 1) {
+    cycle();
+    regs.PC = addr;
+  }
+  fetch();
 }
 }  // namespace gb
