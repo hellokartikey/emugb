@@ -1,82 +1,8 @@
-#pragma once
-
-#include <array>
 #include <cstdint>
-#include <iostream>
-#include <vector>
 
-namespace gb {
-using byte = uint8_t;
-using word = uint16_t;
+#include "types.h"
 
-using cycles_t = uint32_t;
-
-constexpr byte max_byte = 0xFF;
-constexpr word max_word = 0xFFFF;
-constexpr word memory_size = 0xFFFF;
-constexpr word cartridge_size = 0x8000;
-
-using memory_t = std::array<byte, memory_size>;
-using cartridge_t = std::array<byte, 0x8000>;
-
-struct registers_t {
-  // AF = [A [znhc xxxx]]
-  union {
-    word AF;
-    struct {
-      union {
-        byte F;
-        struct {
-          byte : 4;
-          byte c : 1;
-          byte h : 1;
-          byte n : 1;
-          byte z : 1;
-        };
-      };
-      byte A;
-    };
-  };
-
-  // BC = [B C]
-  union {
-    word BC;
-    struct {
-      byte C;
-      byte B;
-    };
-  };
-
-  // DE = [D E]
-  union {
-    word DE;
-    struct {
-      byte E;
-      byte D;
-    };
-  };
-
-  // HL = [H L]
-  union {
-    word HL;
-    struct {
-      byte L;
-      byte H;
-    };
-  };
-
-  word SP;
-  word PC;
-};
-
-bool regs_iseq(registers_t regs1, registers_t regs2);
-bool carry_add(byte op1, byte op2);
-bool half_carry_add(byte op1, byte op2);
-bool half_carry_sub(byte op1, byte op2);
-
-byte rand_byte();
-word rand_word();
-
+namespace gbc {
 /**
  * R8   :   8 Bit Register
  * R16  :   16 Bit Register
@@ -183,4 +109,4 @@ constexpr byte
     INC_BC = 0x03, INC_DE = 0x13, INC_HL = 0x23, INC_SP = 0x33, DEC_BC = 0x0B,
     DEC_DE = 0x1B, DEC_HL = 0x2B, DEC_SP = 0x3B, ADD_HL_BC = 0x09,
     ADD_HL_DE = 0x19, ADD_HL_HL = 0x29, ADD_HL_SP = 0x39, ADD_SP_R8 = 0xE8;
-}  // namespace gb
+}  // namespace gbc

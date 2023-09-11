@@ -22,7 +22,7 @@ include(FetchContent)
 Set(FETCHCONTENT_QUIET FALSE)
 
 include(cmake/fmt.cmake)
-include(cmake/sdl2.cmake)
+include(cmake/olcPixelGameEngine.cmake)
 include(cmake/google-test.cmake)
 
 add_executable(${BUILD_TARGET})

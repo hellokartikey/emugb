@@ -1,4 +1,4 @@
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cxx *.hxx)
+file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cc src/*.h)
 
 add_custom_target(
     clangformat
