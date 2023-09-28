@@ -3,21 +3,22 @@
 
 #include <fmt/core.h>
 
+#include "bus.h"
 #include "opcode.h"
 #include "types.h"
 
 namespace gbc {
-class Bus;
-
 // LR35902 Architecture
 class CPU {
  public:
   CPU();
   CPU(Bus& bus);
-  CPU(Bus* bus);
 
   // Initialize to startup state
   void init();
+
+  // Initialize opcodes
+  void init_opcode();
 
   // Execute instructions for 'steps' cycles (infinite if 'steps' is 0)
   void execute(cycles_t steps = 0);
@@ -30,7 +31,6 @@ class CPU {
 
   // Connect bus
   void connect_bus(Bus& bus);
-  void connect_bus(Bus* bus);
   bool is_bus_connected();
 
  private:  // Helpers
@@ -53,7 +53,7 @@ class CPU {
   void cycle();
 
  private:  // Members
-  Bus* bus;
+  Bus* bus = nullptr;
 
   registers_t registers;
 
@@ -65,6 +65,9 @@ class CPU {
   table_t prefix_table;
 
  private:  // Opcodes
+  // Row 0
+  opcode_t nop = [this]() { fmt::print("NOP\n"); };
+  opcode_t ld_bc_d16 = [this]() { registers.BC = read16(registers.PC); };
 };
 }  // namespace gbc
 

@@ -4,7 +4,7 @@
 #include "cpu.h"
 #include "memory.h"
 
-class BusTestFixture : public testing::Test {
+class CPUTestFixture : public testing::Test {
  protected:
   gbc::Bus bus;
 };

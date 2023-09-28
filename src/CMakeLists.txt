@@ -8,6 +8,7 @@ add_library(
   bus.h     bus.cc
   cpu.h     cpu.cc
   memory.h  memory.cc
+  opcode.h  opcode.cc
   types.h   types.cc
 )
 

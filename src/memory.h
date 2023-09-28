@@ -4,12 +4,14 @@
 #include <algorithm>
 #include <array>
 
+#include "bus.h"
 #include "types.h"
 
 namespace gbc {
 class Memory {
  public:
   Memory();
+  Memory(Bus& bus);
 
   // Initializes memory with default bytes
   void init();
@@ -20,10 +22,17 @@ class Memory {
   // Load inline programs into the ROM bank 00
   void load_program(const program_t& program, word begin = 0x0000);
 
+  // Connect bus
+  void connect_bus(Bus& bus);
+  bool is_bus_connected();
+
  public:  // Operator overloads
   byte& operator[](word addr);
 
- private:
+ private:  // Members
+  Bus* bus;
+
+ private:  // Blocks
   // ROM Bank 00
   // 0x0000 - 0x3fff
   block_t<0x3fff - 0x0000> ROM_00;

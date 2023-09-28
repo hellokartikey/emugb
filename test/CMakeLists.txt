@@ -1,6 +1,6 @@
 target_sources(
   ${TEST_TARGET}
-  PRIVATE bus.cc
+  PRIVATE opcodes.cc
 )
 
 target_link_libraries(

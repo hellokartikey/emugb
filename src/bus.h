@@ -1,11 +1,15 @@
 #ifndef EMUGB_BUS_H
 #define EMUGB_BUS_H
 
-#include "cpu.h"
-#include "memory.h"
 #include "types.h"
 
 namespace gbc {
+// Forward declaration
+class Bus;
+
+class CPU;
+class Memory;
+
 class Bus {
  public:
   Bus();
@@ -16,9 +20,13 @@ class Bus {
   // Write memory
   void write(word addr, byte data);
 
+ public:  // Connect components
+  void connect_cpu(CPU& cpu);
+  void connect_memory(Memory& memory);
+
  private:
-  CPU cpu;
-  Memory memory;
+  CPU* cpu;
+  Memory* memory;
 };
 }  // namespace gbc
 

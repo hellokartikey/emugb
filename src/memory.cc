@@ -3,6 +3,11 @@
 namespace gbc {
 Memory::Memory() { init(); }
 
+Memory::Memory(Bus& bus) {
+  init();
+  connect_bus(bus);
+}
+
 void Memory::init() {}
 
 void Memory::reset() {
@@ -199,6 +204,13 @@ byte& Memory::operator[](word addr) {
 void Memory::load_program(const program_t& program, word begin) {
   ROM_00 = program;
 }
+
+void Memory::connect_bus(Bus& bus) {
+  this->bus = &bus;
+  bus.connect_memory(*this);
+}
+
+bool Memory::is_bus_connected() { return bus != nullptr; }
 
 bool Memory::in(word addr, word begin, word end) {
   return begin <= addr && addr <= end;
