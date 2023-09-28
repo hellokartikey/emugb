@@ -41,9 +41,9 @@ struct registers_t {  // clang-format off
 using cycles_t = std::uint64_t;
 
 template <std::size_t size>
-using block = std::array<byte, size>;
+using block_t = std::array<byte, size + 1>;
 
-using program = std::vector<byte>;
+using program_t = std::array<byte, 0x4000>;
 
 using opcode_t = std::function<void()>;
 using table_t = std::map<byte, opcode_t>;

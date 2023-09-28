@@ -14,7 +14,7 @@ class Bus {
   byte read(word addr);
 
   // Write memory
-  byte write(word addr, byte data);
+  void write(word addr, byte data);
 
  private:
   CPU cpu;

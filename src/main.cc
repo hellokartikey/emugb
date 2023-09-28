@@ -2,16 +2,17 @@
 
 #include <iostream>
 
+#include "bus.h"
+#include "memory.h"
+#include "opcode.h"
 #include "types.h"
 
+using namespace gbc;
+
 int main() {
-  gbc::registers_t regs;
+  Bus bus;
 
-  regs.BC = 0x0000;
+  program_t test_prog = {NOP};
 
-  regs.C = 0xff;
-  fmt::print("{:x}\n", regs.BC);
-
-  fmt::print("{}\n", sizeof(regs));
   return 0;
 }

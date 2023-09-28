@@ -1,6 +1,9 @@
 #ifndef EMUGB_CPU_H
 #define EMUGB_CPU_H
 
+#include <fmt/core.h>
+
+#include "opcode.h"
 #include "types.h"
 
 namespace gbc {
@@ -11,6 +14,7 @@ class CPU {
  public:
   CPU();
   CPU(Bus& bus);
+  CPU(Bus* bus);
 
   // Initialize to startup state
   void init();
@@ -21,8 +25,12 @@ class CPU {
   // Reset all registers to 0
   void reset();
 
+  // Interrupt
+  void inter();
+
   // Connect bus
   void connect_bus(Bus& bus);
+  void connect_bus(Bus* bus);
   bool is_bus_connected();
 
  private:  // Helpers
@@ -55,6 +63,8 @@ class CPU {
 
   table_t opcode_table;
   table_t prefix_table;
+
+ private:  // Opcodes
 };
 }  // namespace gbc
 
