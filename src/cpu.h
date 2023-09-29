@@ -74,7 +74,13 @@ class CPU {
  private:  // Opcodes
   // Row 0
   opcode_t nop = [this]() {};
-  opcode_t ld_bc_d16 = [this]() { registers_.BC = read16(registers_.PC); };
+  opcode_t ld_bc_d16 = [this]() { ld_r16_d16(registers_.BC); };
+
+ private:  // Opcode Helpers
+  void ld_r16_d16(word& r16) {
+    r16 = read16(registers_.PC);
+    registers_.PC += 2;
+  }
 };
 }  // namespace gbc
 

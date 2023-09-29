@@ -2,7 +2,10 @@ target_sources(
   ${TEST_TARGET}
   PRIVATE bus.cc
   PRIVATE memory.cc
+
+  # Row 0
   PRIVATE nop.cc
+  PRIVATE ld_bc_d16.cc
 )
 
 target_link_libraries(

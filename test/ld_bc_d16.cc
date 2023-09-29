@@ -1,20 +1,20 @@
 #include "fixture.h"
-#include "types.h"
 
-using Opcode_NOP_Tests = CPUOpcodeTests;
+using namespace gbc;
+using Opcode_LD_BC_D16_Tests = CPUOpcodeTests;
 
-TEST_F(Opcode_NOP_Tests, NOP_Opcode) { EXPECT_EQ(NOP, 0x00); }
+TEST_F(Opcode_LD_BC_D16_Tests, OpcodeTest) { EXPECT_EQ(LD_BC_D16, 0x01); }
 
-TEST_F(Opcode_NOP_Tests, NOP_Basic) {
+TEST_F(Opcode_LD_BC_D16_Tests, BasicTest) {
   /** setup - begin */
   cpu.registers({});
-  program_t program = {NOP};
+  program_t program = {LD_BC_D16, 0x34, 0x12};
   mem.load_program(program);
   /** setup - end */
 
   /** expected - begin */
-  cycles_t cycles = 1;
-  registers_t registers{.PC = 0x0001};
+  cycles_t cycles = 3;
+  registers_t registers{.BC = 0x1234, .PC = 0x0003};
   /** expected - end */
 
   /** execute */

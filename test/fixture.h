@@ -6,13 +6,13 @@
 
 using namespace gbc;
 
-class CPUOpcodeTest : public testing::Test {
+class CPUOpcodeTests : public testing::Test {
  protected:
   CPU cpu;
   Memory mem;
   Bus bus;
 
-  CPUOpcodeTest() {
+  CPUOpcodeTests() {
     cpu.connect_bus(bus);
     mem.connect_bus(bus);
 

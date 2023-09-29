@@ -11,27 +11,6 @@ using byte = std::uint8_t;
 using word = std::uint16_t;
 
 struct registers_t {  // clang-format off
-  // registers_t(
-  //   word AF = 0x0000,
-  //   word BC = 0x0000,
-  //   word DE = 0x0000,
-  //   word HL = 0x0000,
-  //   word SP = 0x0000,
-  //   word PC = 0x0000,
-    
-  //   byte A = 0x00,
-  //   byte B = 0x00,
-  //   byte C = 0x00,
-  //   byte D = 0x00,
-  //   byte E = 0x00,
-  //   byte H = 0x00,
-  //   byte L = 0x00,
-
-  //   bool c = 0,
-  //   bool h = 0,
-  //   bool n = 0,
-  //   bool z = 0
-  // );
 
   // AF = [A F]
   // F = [z n h c x x x x]
