@@ -1,10 +1,14 @@
 #include "memory.h"
 
 namespace gbc {
-Memory::Memory() { init(); }
+Memory::Memory() {
+  reset();
+  init();
+  bus_ = nullptr;
+}
 
 Memory::Memory(Bus& bus) {
-  init();
+  Memory();
   connect_bus(bus);
 }
 
@@ -103,6 +107,17 @@ void Memory::reset() {
   XXX = 0x00;
 }
 
+void Memory::load_program(const program_t& program, word begin) {
+  ROM_00 = program;
+}
+
+void Memory::connect_bus(Bus& bus) {
+  bus_ = &bus;
+  bus.connect_memory(*this);
+}
+
+bool Memory::is_bus_connected() { return bus_ != nullptr; }
+
 byte& Memory::operator[](word addr) {
   XXX = 0x00;
 
@@ -200,17 +215,6 @@ byte& Memory::operator[](word addr) {
 
   return XXX;
 }
-
-void Memory::load_program(const program_t& program, word begin) {
-  ROM_00 = program;
-}
-
-void Memory::connect_bus(Bus& bus) {
-  this->bus = &bus;
-  bus.connect_memory(*this);
-}
-
-bool Memory::is_bus_connected() { return bus != nullptr; }
 
 bool Memory::in(word addr, word begin, word end) {
   return begin <= addr && addr <= end;

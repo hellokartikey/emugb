@@ -30,7 +30,7 @@ class Memory {
   byte& operator[](word addr);
 
  private:  // Members
-  Bus* bus;
+  Bus* bus_;
 
  private:  // Blocks
   // ROM Bank 00

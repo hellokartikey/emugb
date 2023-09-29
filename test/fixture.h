@@ -4,7 +4,18 @@
 #include "cpu.h"
 #include "memory.h"
 
-class CPUTestFixture : public testing::Test {
+using namespace gbc;
+
+class CPUOpcodeTest : public testing::Test {
  protected:
-  gbc::Bus bus;
+  CPU cpu;
+  Memory mem;
+  Bus bus;
+
+  CPUOpcodeTest() {
+    cpu.connect_bus(bus);
+    mem.connect_bus(bus);
+
+    cpu.reset();
+  }
 };

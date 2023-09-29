@@ -14,26 +14,33 @@ class CPU {
   CPU();
   CPU(Bus& bus);
 
+  // Get cycles
+  cycles_t cycles();
+
+  // Registers getters and setters
+  registers_t registers();
+  void registers(registers_t registers);
+
   // Initialize to startup state
   void init();
-
-  // Initialize opcodes
-  void init_opcode();
-
-  // Execute instructions for 'steps' cycles (infinite if 'steps' is 0)
-  void execute(cycles_t steps = 0);
 
   // Reset all registers to 0
   void reset();
 
-  // Interrupt
-  void inter();
+  // Execute instructions for 'steps' cycles (infinite if 'steps' is 0)
+  void execute(cycles_t steps = 0);
 
   // Connect bus
   void connect_bus(Bus& bus);
   bool is_bus_connected();
 
  private:  // Helpers
+           // Initialize opcodes
+  void init_opcode();
+
+  // Interrupt
+  void inter();
+
   // Read from memory
   byte read(word addr);
   word read16(word addr);
@@ -53,21 +60,21 @@ class CPU {
   void cycle();
 
  private:  // Members
-  Bus* bus = nullptr;
+  Bus* bus_ = nullptr;
 
-  registers_t registers;
+  registers_t registers_;
 
-  byte fetched;
+  byte fetched_;
 
-  cycles_t cycles;
+  cycles_t cycles_;
 
-  table_t opcode_table;
-  table_t prefix_table;
+  table_t opcode_table_;
+  table_t prefix_table_;
 
  private:  // Opcodes
   // Row 0
-  opcode_t nop = [this]() { fmt::print("NOP\n"); };
-  opcode_t ld_bc_d16 = [this]() { registers.BC = read16(registers.PC); };
+  opcode_t nop = [this]() {};
+  opcode_t ld_bc_d16 = [this]() { registers_.BC = read16(registers_.PC); };
 };
 }  // namespace gbc
 

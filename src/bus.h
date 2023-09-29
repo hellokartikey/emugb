@@ -25,8 +25,8 @@ class Bus {
   void connect_memory(Memory& memory);
 
  private:
-  CPU* cpu;
-  Memory* memory;
+  CPU* cpu_;
+  Memory* mem_;
 };
 }  // namespace gbc
 

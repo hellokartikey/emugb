@@ -6,11 +6,11 @@
 namespace gbc {
 Bus::Bus() {}
 
-byte Bus::read(word addr) { return (*memory)[addr]; }
+byte Bus::read(word addr) { return (*mem_)[addr]; }
 
-void Bus::write(word addr, byte data) { (*memory)[addr] = data; }
+void Bus::write(word addr, byte data) { (*mem_)[addr] = data; }
 
-void Bus::connect_cpu(CPU& cpu) { this->cpu = &cpu; }
+void Bus::connect_cpu(CPU& cpu) { cpu_ = &cpu; }
 
-void Bus::connect_memory(Memory& memory) { this->memory = &memory; }
+void Bus::connect_memory(Memory& memory) { mem_ = &memory; }
 }  // namespace gbc
