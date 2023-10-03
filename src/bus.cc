@@ -4,7 +4,10 @@
 #include "memory.h"
 
 namespace gbc {
-Bus::Bus() {}
+Bus::Bus() {
+  cpu_ = nullptr;
+  mem_ = nullptr;
+}
 
 byte Bus::read(word addr) { return (*mem_)[addr]; }
 

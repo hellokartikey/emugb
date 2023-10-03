@@ -6,6 +6,9 @@ target_sources(
   # Row 0
   PRIVATE nop.cc
   PRIVATE ld_bc_d16.cc
+  PRIVATE ld_abc_a.cc
+  PRIVATE inc_bc.cc
+  PRIVATE inc_b.cc
 )
 
 target_link_libraries(

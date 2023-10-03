@@ -1,20 +1,20 @@
 #include "fixture.h"
 
 using namespace gbc;
-using Opcode_LD_BC_D16_Tests = CPUOpcodeTests;
+using Opcode_INC_BC_Tests = CPUOpcodeTests;
 
-TEST_F(Opcode_LD_BC_D16_Tests, OpcodeTest) { EXPECT_EQ(LD_BC_D16, 0x01); }
+TEST_F(Opcode_INC_BC_Tests, OpcodeTest) { EXPECT_EQ(INC_BC, 0x03); }
 
-TEST_F(Opcode_LD_BC_D16_Tests, BasicTest) {
+TEST_F(Opcode_INC_BC_Tests, BasicTest) {
   /** setup - begin */
-  cpu.registers({});
-  program_t program = {LD_BC_D16, 0x34, 0x12};
+  cpu.registers({.BC = 0x1000});
+  program_t program = {INC_BC};
   mem.load_program(program);
   /** setup - end */
 
   /** expected - begin */
-  cycles_t cycles = 3;
-  registers_t registers{.BC = 0x1234, .PC = 0x0003};
+  cycles_t cycles = 2;
+  registers_t registers{.BC = 0x1001, .PC = 0x0001};
   /** expected - end */
 
   /** execute */

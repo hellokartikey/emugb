@@ -11,7 +11,6 @@ using byte = std::uint8_t;
 using word = std::uint16_t;
 
 struct registers_t {  // clang-format off
-
   // AF = [A F]
   // F = [z n h c x x x x]
   union {

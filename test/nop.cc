@@ -18,7 +18,7 @@ TEST_F(Opcode_NOP_Tests, NOP_Basic) {
   /** expected - end */
 
   /** execute */
-  cpu.execute(cycles);
+  cpu.execute(1);
 
   /** checks - begin */
   EXPECT_EQ(cpu.cycles(), cycles);

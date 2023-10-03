@@ -35,9 +35,6 @@ class CPU {
   bool is_bus_connected();
 
  private:  // Helpers
-           // Initialize opcodes
-  void init_opcode();
-
   // Interrupt
   void inter();
 
@@ -68,19 +65,32 @@ class CPU {
 
   cycles_t cycles_;
 
-  table_t opcode_table_;
-  table_t prefix_table_;
-
  private:  // Opcodes
   // Row 0
   opcode_t nop = [this]() {};
   opcode_t ld_bc_d16 = [this]() { ld_r16_d16(registers_.BC); };
+  opcode_t ld_abc_a = [this]() { ld_ar16_r8(registers_.BC, registers_.A); };
+  opcode_t inc_bc = [this]() { inc_r16(registers_.BC); };
+  opcode_t inc_b = [this]() { inc_r8(registers_.B); };
 
- private:  // Opcode Helpers
-  void ld_r16_d16(word& r16) {
-    r16 = read16(registers_.PC);
-    registers_.PC += 2;
-  }
+ private:
+  // clang-format off
+  table_t opcode_table_ = {
+    // Row 0
+    {NOP, nop},
+    {LD_BC_D16, ld_bc_d16},
+    {LD_ABC_A, ld_abc_a},
+    {INC_BC, inc_bc},
+    {INC_B, inc_b}
+  };
+  // clang-format on
+  table_t prefix_table_;
+
+ private:  // Opcode Generics
+  void ld_r16_d16(word& r16);
+  void ld_ar16_r8(word& ar16, byte& r8);
+  void inc_r16(word& r16);
+  void inc_r8(byte& r8);
 };
 }  // namespace gbc
 
