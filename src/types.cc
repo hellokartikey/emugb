@@ -13,4 +13,13 @@ bool operator==(const registers_t& lhs, const registers_t& rhs) {
 bool operator!=(const registers_t& lhs, const registers_t& rhs) {
   return !(lhs == rhs);
 }
+
+bool bit(const byte& r8, const std::size_t bit) { return r8 & (0x01 << bit); }
+
+void bit(byte& r8, const std::size_t bit, bool value) {
+  if (value)
+    r8 = r8 | (0x01 << bit);
+  else
+    r8 = r8 & (0xff ^ (0x01 << bit));
+}
 };  // namespace gbc

@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <string>
 #include <vector>
 
 namespace gbc {
@@ -43,6 +44,9 @@ struct registers_t {  // clang-format off
 bool operator==(const registers_t& lhs, const registers_t& rhs);
 bool operator!=(const registers_t& lhs, const registers_t& rhs);
 
+bool bit(const byte& r8, const std::size_t bit);
+void bit(byte& r8, const std::size_t bit, bool value);
+
 using cycles_t = std::uint64_t;
 
 template <std::size_t size>
@@ -52,6 +56,9 @@ using program_t = std::array<byte, 0x4000>;
 
 using opcode_t = std::function<void()>;
 using table_t = std::map<byte, opcode_t>;
+
+using instruction_t = std::string;
+using asm_t = std::vector<instruction_t>;
 }  // namespace gbc
 
 #endif

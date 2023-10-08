@@ -9,6 +9,10 @@ target_sources(
   PRIVATE ld_abc_a.cc
   PRIVATE inc_bc.cc
   PRIVATE inc_b.cc
+  PRIVATE dec_b.cc
+  PRIVATE ld_b_d8.cc
+  PRIVATE rlca.cc
+  PRIVATE ld_a16_sp.cc
 )
 
 target_link_libraries(

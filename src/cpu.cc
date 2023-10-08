@@ -70,13 +70,13 @@ word CPU::pop() {
   return 0x0000;
 }
 
-void CPU::fetch() { fetched_ = read(registers_.PC++); }
+void CPU::fetch() { fetched_ = read(PC++); }
 
 void CPU::cycle() { cycles_++; }
 
 void CPU::ld_r16_d16(word& r16) {
-  r16 = read16(registers_.PC);
-  registers_.PC += 2;
+  r16 = read16(PC);
+  PC += 2;
 }
 
 void CPU::ld_ar16_r8(word& ar16, byte& r8) { write(ar16, r8); }
@@ -87,12 +87,24 @@ void CPU::inc_r16(word& r16) {
 }
 
 void CPU::inc_r8(byte& r8) {
-  bool before = (r8 & 0x10);
+  bool before = bit(r8, 4);
   r8++;
-  bool after = (r8 & 0x10);
+  bool after = bit(r8, 4);
 
   registers_.z = (r8 == 0);
   registers_.n = 0;
   registers_.h = before != after;
 }
+
+void CPU::dec_r8(byte& r8) {
+  bool before = bit(r8, 4);
+  r8--;
+  bool after = bit(r8, 4);
+
+  registers_.z = (r8 == 0);
+  registers_.n = 1;
+  registers_.h = before != after;
+}
+
+void CPU::ld_r8_d8(byte& r8) { r8 = read(PC++); }
 }  // namespace gbc

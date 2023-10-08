@@ -34,6 +34,23 @@ class CPU {
   void connect_bus(Bus& bus);
   bool is_bus_connected();
 
+ private:  // Registers
+  word& AF = registers_.AF;
+  word& BC = registers_.BC;
+  word& DE = registers_.DE;
+  word& HL = registers_.HL;
+  word& SP = registers_.SP;
+  word& PC = registers_.PC;
+
+  byte& A = registers_.A;
+  byte& F = registers_.F;
+  byte& B = registers_.B;
+  byte& C = registers_.C;
+  byte& D = registers_.D;
+  byte& E = registers_.E;
+  byte& H = registers_.H;
+  byte& L = registers_.L;
+
  private:  // Helpers
   // Interrupt
   void inter();
@@ -68,10 +85,23 @@ class CPU {
  private:  // Opcodes
   // Row 0
   opcode_t nop = [this]() {};
-  opcode_t ld_bc_d16 = [this]() { ld_r16_d16(registers_.BC); };
-  opcode_t ld_abc_a = [this]() { ld_ar16_r8(registers_.BC, registers_.A); };
-  opcode_t inc_bc = [this]() { inc_r16(registers_.BC); };
-  opcode_t inc_b = [this]() { inc_r8(registers_.B); };
+  opcode_t ld_bc_d16 = [this]() { ld_r16_d16(BC); };
+  opcode_t ld_abc_a = [this]() { ld_ar16_r8(BC, A); };
+  opcode_t inc_bc = [this]() { inc_r16(BC); };
+  opcode_t inc_b = [this]() { inc_r8(B); };
+  opcode_t dec_b = [this]() { dec_r8(B); };
+  opcode_t ld_b_d8 = [this]() { ld_r8_d8(B); };
+  opcode_t rlca = [this]() {
+    registers_.c = bit(A, 7);
+    A <<= 1;
+    bit(A, 0, registers_.c);
+  };
+  opcode_t ld_a16_sp = [this]() {
+    word addr = read16(PC);
+    PC += 2;
+
+    write16(addr, SP);
+  };
 
  private:
   // clang-format off
@@ -81,7 +111,11 @@ class CPU {
     {LD_BC_D16, ld_bc_d16},
     {LD_ABC_A, ld_abc_a},
     {INC_BC, inc_bc},
-    {INC_B, inc_b}
+    {INC_B, inc_b},
+    {DEC_B, dec_b},
+    {LD_B_D8, ld_b_d8},
+    {RLCA, rlca},
+    {LD_A16_SP, ld_a16_sp}
   };
   // clang-format on
   table_t prefix_table_;
@@ -91,6 +125,8 @@ class CPU {
   void ld_ar16_r8(word& ar16, byte& r8);
   void inc_r16(word& r16);
   void inc_r8(byte& r8);
+  void dec_r8(byte& r8);
+  void ld_r8_d8(byte& r8);
 };
 }  // namespace gbc
 

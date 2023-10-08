@@ -8,14 +8,19 @@ A Game Boy Color (CGB) emulator
 
 Abstraction of the `LR35902` CPU.
 
-Registers:
+|Register| 15 ... 8 | 7 ... 0 |
+| -- | - | - |
+| AF | A | F |
+| BC | B | C |
+| DE | D | E |
+| HL | H | L |
+| SP | - | - |
+| PC | - | - |
 
-| 15 ... 8 | 7 ... 0 |
-| - | - |
-| A | F |
-| B | C |
-| D | E |
-| H | L |
+|Flag Register|||||||||
+| - | - | - | - | - | - | - | - | - |
+| F | z | n | h | c | x | x | x | x |
+
 
 ## Build
 
@@ -23,23 +28,24 @@ Build using CMake
 
 ```bash
 cmake -B build
-cmake --build build/
+cd build
+make
 ```
 
 ### Running
 
 ```bash
-./build/emugb
+./bin/emugb
 ```
 
 ### Testing
 
 1. Using CTest
 ```bash
-ctest --test-dir ./build/test
+ctest
 ```
 
 2. Using GTest
 ```bash
-./build/test/testgb
+./bin/testgb
 ```
