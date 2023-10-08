@@ -21,7 +21,6 @@ class Bus {
   void write(word addr, byte data);
 
  public:  // Connect components
-  void connect_cpu(CPU& cpu);
   void connect_memory(Memory& memory);
 
  private:

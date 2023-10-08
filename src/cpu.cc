@@ -31,10 +31,7 @@ void CPU::execute(cycles_t steps) {
   }
 }
 
-void CPU::connect_bus(Bus& bus) {
-  bus_ = &bus;
-  bus.connect_cpu(*this);
-}
+void CPU::connect_bus(Bus& bus) { bus_ = &bus; }
 
 bool CPU::is_bus_connected() { return bus_ != nullptr; }
 
