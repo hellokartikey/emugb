@@ -119,4 +119,9 @@ void CPU::add_hl(word& r16) {
 }
 
 void CPU::ld_a_ar16(word& r16) { A = read(r16); }
+
+void CPU::dec_r16(word& r16) {
+  r16--;
+  cycle();
+}
 }  // namespace gbc

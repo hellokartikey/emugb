@@ -107,6 +107,19 @@ class CPU {
   };
   opcode_t add_hl_bc = [this]() { add_hl(BC); };
   opcode_t ld_a_abc = [this]() { ld_a_ar16(BC); };
+  opcode_t dec_bc = [this]() { dec_r16(BC); };
+  opcode_t inc_c = [this]() { inc_r8(C); };
+  opcode_t dec_c = [this]() { dec_r8(C); };
+  opcode_t ld_c_d8 = [this]() { ld_r8_d8(C); };
+  opcode_t rrca = [this]() {
+    registers_.z = 0;
+    registers_.n = 0;
+    registers_.h = 0;
+    registers_.c = bit(A, 0);
+
+    A >>= 1;
+    bit(A, 7, registers_.c);
+  };
 
  private:
   // clang-format off
@@ -122,7 +135,12 @@ class CPU {
     {RLCA,      rlca},
     {LD_A16_SP, ld_a16_sp},
     {ADD_HL_BC, add_hl_bc},
-    {LD_A_ABC,  ld_a_abc}
+    {LD_A_ABC,  ld_a_abc},
+    {DEC_BC,    dec_bc},
+    {INC_C,     inc_c},
+    {DEC_C,     dec_c},
+    {LD_C_D8,   ld_c_d8},
+    {RRCA,      rrca}       
   };
   // clang-format on
   table_t prefix_table_;
@@ -136,6 +154,7 @@ class CPU {
   void ld_r8_d8(byte& r8);
   void add_hl(word& r16);
   void ld_a_ar16(word& r16);
+  void dec_r16(word& r16);
 };
 }  // namespace gbc
 

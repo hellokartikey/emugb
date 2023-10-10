@@ -15,6 +15,11 @@ target_sources(
   PRIVATE ld_a16_sp.cc
   PRIVATE add_hl_bc.cc
   PRIVATE ld_a_abc.cc
+  PRIVATE dec_bc.cc
+  PRIVATE inc_c.cc
+  PRIVATE dec_c.cc
+  PRIVATE ld_c_d8.cc
+  PRIVATE rrca.cc
 )
 
 target_link_libraries(
