@@ -94,6 +94,9 @@ class CPU {
   opcode_t rlca = [this]() {
     registers_.c = bit(A, 7);
     A <<= 1;
+    registers_.z = 0;
+    registers_.n = 0;
+    registers_.h = 0;
     bit(A, 0, registers_.c);
   };
   opcode_t ld_a16_sp = [this]() {
@@ -102,20 +105,24 @@ class CPU {
 
     write16(addr, SP);
   };
+  opcode_t add_hl_bc = [this]() { add_hl(BC); };
+  opcode_t ld_a_abc = [this]() { ld_a_ar16(BC); };
 
  private:
   // clang-format off
   table_t opcode_table_ = {
     // Row 0
-    {NOP, nop},
+    {NOP,        nop},
     {LD_BC_D16, ld_bc_d16},
-    {LD_ABC_A, ld_abc_a},
-    {INC_BC, inc_bc},
-    {INC_B, inc_b},
-    {DEC_B, dec_b},
-    {LD_B_D8, ld_b_d8},
-    {RLCA, rlca},
-    {LD_A16_SP, ld_a16_sp}
+    {LD_ABC_A,  ld_abc_a},
+    {INC_BC,    inc_bc},
+    {INC_B,     inc_b},
+    {DEC_B,     dec_b},
+    {LD_B_D8,   ld_b_d8},
+    {RLCA,      rlca},
+    {LD_A16_SP, ld_a16_sp},
+    {ADD_HL_BC, add_hl_bc},
+    {LD_A_ABC,  ld_a_abc}
   };
   // clang-format on
   table_t prefix_table_;
@@ -127,6 +134,8 @@ class CPU {
   void inc_r8(byte& r8);
   void dec_r8(byte& r8);
   void ld_r8_d8(byte& r8);
+  void add_hl(word& r16);
+  void ld_a_ar16(word& r16);
 };
 }  // namespace gbc
 

@@ -84,24 +84,39 @@ void CPU::inc_r16(word& r16) {
 }
 
 void CPU::inc_r8(byte& r8) {
-  bool before = bit(r8, 4);
+  bool old_b3 = bit(r8, 3);
   r8++;
-  bool after = bit(r8, 4);
+  bool new_b3 = bit(r8, 3);
 
   registers_.z = (r8 == 0);
   registers_.n = 0;
-  registers_.h = before != after;
+  registers_.h = old_b3 ? old_b3 != new_b3 : 0;
 }
 
 void CPU::dec_r8(byte& r8) {
-  bool before = bit(r8, 4);
+  bool old_b3 = bit(r8, 3);
   r8--;
-  bool after = bit(r8, 4);
+  bool new_b3 = bit(r8, 3);
 
   registers_.z = (r8 == 0);
   registers_.n = 1;
-  registers_.h = before != after;
+  registers_.h = old_b3 ? old_b3 != new_b3 : 0;
 }
 
 void CPU::ld_r8_d8(byte& r8) { r8 = read(PC++); }
+
+void CPU::add_hl(word& r16) {
+  bool old_b3 = bit(H, 3);
+  word old_HL = HL;
+  HL += r16;
+  bool new_b3 = bit(H, 3);
+
+  registers_.n = 0;
+  registers_.h = old_b3 ? old_b3 != new_b3 : 0;
+  registers_.c = HL < old_HL;
+
+  cycle();
+}
+
+void CPU::ld_a_ar16(word& r16) { A = read(r16); }
 }  // namespace gbc

@@ -14,4 +14,6 @@ byte Bus::read(word addr) { return (*mem_)[addr]; }
 void Bus::write(word addr, byte data) { (*mem_)[addr] = data; }
 
 void Bus::connect_memory(Memory& memory) { mem_ = &memory; }
+
+bool Bus::is_mem_connected() { return mem_ != nullptr; }
 }  // namespace gbc

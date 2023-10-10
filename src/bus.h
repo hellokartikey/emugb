@@ -22,6 +22,7 @@ class Bus {
 
  public:  // Connect components
   void connect_memory(Memory& memory);
+  bool is_mem_connected();
 
  private:
   CPU* cpu_;
