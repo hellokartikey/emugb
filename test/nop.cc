@@ -3,9 +3,9 @@
 
 using Opcode_NOP_Tests = CPUOpcodeTests;
 
-TEST_F(Opcode_NOP_Tests, NOP_Opcode) { EXPECT_EQ(NOP, 0x00); }
+TEST_F(Opcode_NOP_Tests, OpcodeTest) { EXPECT_EQ(NOP, 0x00); }
 
-TEST_F(Opcode_NOP_Tests, NOP_Basic) {
+TEST_F(Opcode_NOP_Tests, BasicTest) {
   /** setup - begin */
   cpu.registers({});
   program_t program = {NOP};

@@ -39,23 +39,28 @@ void CPU::inter() {}
 
 byte CPU::read(word addr) {
   cycle();
+
   return bus_->read(addr);
 }
 
-word CPU::read16(word addr) { return read(addr) | (read(addr + 1) << 8); }
+word CPU::read16(word addr) {
+  cycle();
+  cycle();
+
+  return bus_->read16(addr);
+}
 
 void CPU::write(word addr, byte data) {
   cycle();
+
   bus_->write(addr, data);
 }
 
 void CPU::write16(word addr, word data) {
-  byte low, hig;
-  low = data & 0x00ff;
-  hig = (data >> 8) & 0x00ff;
+  cycle();
+  cycle();
 
-  write(addr, low);
-  write(addr + 1, hig);
+  bus_->write16(addr, data);
 }
 
 void CPU::push(word data) {

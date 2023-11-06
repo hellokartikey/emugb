@@ -1,3 +1,5 @@
+add_executable(${BUILD_TARGET})
+
 target_sources(
   ${BUILD_TARGET}
   PRIVATE main.cc
@@ -5,11 +7,11 @@ target_sources(
 
 add_library(
   gbc
-  bus.h     bus.cc
-  cpu.h     cpu.cc
-  memory.h  memory.cc
-  opcode.h  opcode.cc
-  types.h   types.cc
+  bus.h          bus.cc
+  cpu.h          cpu.cc
+  memory.h       memory.cc
+  opcode.h       opcode.cc
+  types.h        types.cc
 )
 
 target_link_libraries(

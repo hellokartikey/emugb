@@ -16,9 +16,11 @@ class Bus {
 
   // Read memory
   byte read(word addr);
+  word read16(word addr);
 
   // Write memory
   void write(word addr, byte data);
+  void write16(word addr, word data);
 
  public:  // Connect components
   void connect_memory(Memory& memory);

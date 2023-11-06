@@ -1,3 +1,8 @@
+enable_testing()
+add_executable(${TEST_TARGET})
+include(GoogleTest)
+gtest_discover_tests(${TEST_TARGET})
+
 target_sources(
   ${TEST_TARGET}
   PRIVATE bus.cc

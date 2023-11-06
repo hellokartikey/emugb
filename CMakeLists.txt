@@ -18,19 +18,8 @@ endif()
 
 include(cmake/clang-format.cmake)
 
-include(FetchContent)
-Set(FETCHCONTENT_QUIET FALSE)
-
-include(cmake/fmt.cmake)
-include(cmake/olcPixelGameEngine.cmake)
-include(cmake/google-test.cmake)
-
-add_executable(${BUILD_TARGET})
-
-enable_testing()
-add_executable(${TEST_TARGET})
-include(GoogleTest)
-gtest_discover_tests(${TEST_TARGET})
+find_package(fmt REQUIRED)
+find_package(GTest REQUIRED)
 
 add_subdirectory(src)
 add_subdirectory(test)
