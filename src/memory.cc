@@ -16,48 +16,48 @@ void Memory::init() {}
 
 void Memory::reset() {
   // ROM_00
-  ROM_00.fill(0x00);
+  ROM_00_.fill(0x00);
 
   // ROM_01 - NN
   // TODO
 
   // VRAM
-  VRAM[0].fill(0x00);
-  VRAM[1].fill(0x00);
+  VRAM_[0].fill(0x00);
+  VRAM_[1].fill(0x00);
 
   // ERAM
   // TODO
 
   // WRAM
-  WRAM.fill(0x00);
+  WRAM_.fill(0x00);
 
   // WRAM Banks
-  WRAM_BANK[0].fill(0x00);
-  WRAM_BANK[1].fill(0x00);
-  WRAM_BANK[2].fill(0x00);
-  WRAM_BANK[3].fill(0x00);
-  WRAM_BANK[4].fill(0x00);
-  WRAM_BANK[5].fill(0x00);
-  WRAM_BANK[6].fill(0x00);
+  WRAM_BANK_[0].fill(0x00);
+  WRAM_BANK_[1].fill(0x00);
+  WRAM_BANK_[2].fill(0x00);
+  WRAM_BANK_[3].fill(0x00);
+  WRAM_BANK_[4].fill(0x00);
+  WRAM_BANK_[5].fill(0x00);
+  WRAM_BANK_[6].fill(0x00);
 
   // OAM
-  OAM.fill(0x00);
+  OAM_.fill(0x00);
 
   // Joypad
-  P1 = 0x00;
+  P1_ = 0x00;
 
   // Serial
-  SB = 0x00;
-  SC = 0x00;
+  SB_ = 0x00;
+  SC_ = 0x00;
 
   // Timer and Divider
-  DIV = 0x00;
-  TIMA = 0x00;
-  TMA = 0x00;
-  TAC = 0x00;
+  DIV_ = 0x00;
+  TIMA_ = 0x00;
+  TMA_ = 0x00;
+  TAC_ = 0x00;
 
   // Interrupt
-  IF = 0x00;
+  IF_ = 0x00;
 
   // Audio
   // TODO
@@ -66,49 +66,49 @@ void Memory::reset() {
   // TODO
 
   // LCD
-  LCDC = 0x00;
-  STAT = 0x00;
-  SCY = 0x00;
-  SCX = 0x00;
-  LY = 0x00;
-  LYC = 0x00;
-  DMA = 0x00;
-  BGP = 0x00;
-  OBP0 = 0x00;
-  OBP1 = 0x00;
-  WY = 0x00;
-  WX = 0x00;
+  LCDC_ = 0x00;
+  STAT_ = 0x00;
+  SCY_ = 0x00;
+  SCX_ = 0x00;
+  LY_ = 0x00;
+  LYC_ = 0x00;
+  DMA_ = 0x00;
+  BGP_ = 0x00;
+  OBP0_ = 0x00;
+  OBP1_ = 0x00;
+  WY_ = 0x00;
+  WX_ = 0x00;
 
   // VRAM Bank Select
-  VBK = 0x00;
+  VBK_ = 0x00;
 
   // Disable Boot ROM
-  BOOT = 0x00;
+  BOOT_ = 0x00;
 
   // VRAM DMA
   // TODO
 
   // Color Palettes
-  BCPS = 0x00;
-  BCPD = 0x00;
-  OCPS = 0x00;
-  OCPD = 0x00;
+  BCPS_ = 0x00;
+  BCPD_ = 0x00;
+  OCPS_ = 0x00;
+  OCPD_ = 0x00;
 
   // WRAM Bank Select
-  SVBK = 0x00;
+  SVBK_ = 0x00;
 
   // HRAM
-  std::fill(HRAM.begin(), HRAM.end(), 0x00);
+  HRAM_.fill(0x00);
 
   // Interrupt Enable
-  IE = 0x00;
+  IE_ = 0x00;
 
   // Default
-  XXX = 0x00;
+  XXX_ = 0x00;
 }
 
 void Memory::load_program(const program_t& program, word begin) {
-  ROM_00 = program;
+  ROM_00_ = program;
 }
 
 void Memory::connect_bus(Bus& bus) {
@@ -119,58 +119,61 @@ void Memory::connect_bus(Bus& bus) {
 bool Memory::is_bus_connected() { return bus_ != nullptr; }
 
 byte& Memory::operator[](word addr) {
-  XXX = 0x00;
+  auto in = [&](word begin, word end) { return begin <= addr && addr <= end; };
+  auto is = [&](enum registers reg) { return addr == reg; };
+
+  XXX_ = 0x00;
 
   // ROM Bank 00
-  if (in(addr, 0x0000, 0x3fff)) return ROM_00[addr];
+  if (in(0x0000, 0x3fff)) return ROM_00_[addr];
 
   // ROM Bank 01-NN
   // TODO
 
   // VRAM (Bank 00-01)
-  if (in(addr, 0x8000, 0x9fff)) return VRAM[VBK & 0x01][addr - 0x8000];
+  if (in(0x8000, 0x9fff)) return VRAM_[VBK_ & 0x01][addr - 0x8000];
 
   // External RAM
   // TODO
 
   // WRAM
-  if (in(addr, 0xc000, 0xcfff)) return WRAM[addr - 0xc000];
+  if (in(0xc000, 0xcfff)) return WRAM_[addr - 0xc000];
 
   // WRAM Banks 01-07
-  if (in(addr, 0xd000, 0xdfff)) {
-    byte bank = SVBK & 0x07;
+  if (in(0xd000, 0xdfff)) {
+    byte bank = SVBK_ & 0x07;
     if (bank) {
       bank--;
     }
-    return WRAM_BANK[bank][addr - 0xd000];
+    return WRAM_BANK_[bank][addr - 0xd000];
   }
 
   // ECHO RAM
-  if (in(addr, 0xe000, 0xfdff)) return (*this)[addr - 0x2000];
+  if (in(0xe000, 0xfdff)) return (*this)[addr - 0x2000];
 
   // OAM
-  if (in(addr, 0xfe9f, 0xfe00)) return OAM[addr - 0xfe9f];
+  if (in(0xfe9f, 0xfe00)) return OAM_[addr - 0xfe9f];
 
   // HRAM
-  if (in(addr, 0xff80, 0xfffe)) return HRAM[addr - 0xff80];
+  if (in(0xff80, 0xfffe)) return HRAM_[addr - 0xff80];
 
   // IO Registers
 
   // Joypad Input
-  if (addr == 0xff00) return P1;
+  if (is(P1)) return P1_;
 
   // Serial Transfer
-  if (addr == 0xff01) return SB;
-  if (addr == 0xff02) return SC;
+  if (is(SB)) return SB_;
+  if (is(SC)) return SC_;
 
   // Timer and Divider
-  if (addr == 0xff04) return DIV;
-  if (addr == 0xff05) return TIMA;
-  if (addr == 0xff06) return TMA;
-  if (addr == 0xff07) return TAC;
+  if (is(DIV)) return DIV_;
+  if (is(TIMA)) return TIMA_;
+  if (is(TMA)) return TMA_;
+  if (is(TAC)) return TAC_;
 
   // Interrupt Flag
-  if (addr == 0xff0f) return IF;
+  if (is(IF)) return IF_;
 
   // Audio
   // TODO
@@ -179,44 +182,40 @@ byte& Memory::operator[](word addr) {
   // TODO
 
   // LCD
-  if (addr == 0xff40) return LCDC;
-  if (addr == 0xff41) return STAT;
-  if (addr == 0xff42) return SCY;
-  if (addr == 0xff43) return SCX;
-  if (addr == 0xff44) return LY;
-  if (addr == 0xff45) return LYC;
-  if (addr == 0xff46) return DMA;
-  if (addr == 0xff47) return BGP;
-  if (addr == 0xff48) return OBP0;
-  if (addr == 0xff49) return OBP1;
-  if (addr == 0xff4a) return WY;
-  if (addr == 0xff4b) return WX;
+  if (is(LCDC)) return LCDC_;
+  if (is(STAT)) return STAT_;
+  if (is(SCY)) return SCY_;
+  if (is(SCX)) return SCX_;
+  if (is(LY)) return LY_;
+  if (is(LYC)) return LYC_;
+  if (is(DMA)) return DMA_;
+  if (is(BGP)) return BGP_;
+  if (is(OBP0)) return OBP0_;
+  if (is(OBP1)) return OBP1_;
+  if (is(WY)) return WY_;
+  if (is(WX)) return WX_;
 
   // VRAM Bank Select
-  if (addr == 0xff4f) return VBK;
+  if (VBK) return VBK_;
 
   // Disable Boot ROM
-  if (addr == 0xff50) return BOOT;
+  if (BOOT) return BOOT_;
 
   // VRAM DMA
   // TODO
 
   // Color Palettes
-  if (addr == 0xff68) return BCPS;
-  if (addr == 0xff69) return BCPD;
-  if (addr == 0xff6a) return OCPS;
-  if (addr == 0xff6b) return OCPD;
+  if (is(BCPS)) return BCPS_;
+  if (is(BCPD)) return BCPD_;
+  if (is(OCPS)) return OCPS_;
+  if (is(OCPD)) return OCPD_;
 
   // WRAM Bank Select
-  if (addr == 0xff70) return SVBK;
+  if (is(SVBK)) return SVBK_;
 
   // Interrupt Enable
-  if (addr == 0xffff) return IE;
+  if (is(IE)) return IE_;
 
-  return XXX;
-}
-
-bool Memory::in(word addr, word begin, word end) {
-  return begin <= addr && addr <= end;
+  return XXX_;
 }
 }  // namespace gbc

@@ -38,6 +38,24 @@ enum opcode : byte {
   DEC_C = 0x0d,
   LD_C_D8 = 0x0e,
   RRCA = 0x0f,
+
+  // Row 1
+  STOP = 0x10,
+  LD_DE_D16 = 0x11,
+  LD_ADE_A = 0x12,
+  INC_DE = 0x13,
+  INC_D = 0x14,
+  DEC_D = 0x15,
+  LD_D_D8 = 0x16,
+  RLA = 0x17,
+  JR_R8 = 0x18,
+  ADD_HL_DE = 0x19,
+  LD_A_ADE = 0x2a,
+  DEC_DE = 0x2b,
+  INC_E = 0x2c,
+  DEC_E = 0x2d,
+  LD_E_D8 = 0x2e,
+  RRA = 0x2f
 };
 
 enum prefix : byte {
