@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.13.4)
 set(BUILD_TARGET "emugb")
 set(TEST_TARGET "testgb")
 
+option(BUILD_TESTS "Build GTest unit tests" OFF)
+
 project(${BUILD_TARGET} VERSION 0.1)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -18,8 +20,15 @@ endif()
 
 include(cmake/clang-format.cmake)
 
+# Non system dependencies
+include(cmake/hk_signals.cmake)
+
+# System dependencies
 find_package(fmt REQUIRED)
 find_package(GTest REQUIRED)
 
 add_subdirectory(src)
-add_subdirectory(test)
+
+if(BUILD_TESTS)
+  add_subdirectory(test)
+endif(BUILD_TESTS)
