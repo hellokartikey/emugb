@@ -2,4 +2,12 @@
 
 #include <iostream>
 
-int main() { return 0; }
+#include "gbc/gameboy.h"
+
+auto main() -> int {
+  auto game = gbc::Gameboy{};
+
+  game.test();
+
+  return 0;
+}

@@ -1,6 +1,12 @@
 #ifndef EMUGB_REGISTERS_H
 #define EMUGB_REGISTERS_H
 
+#include <fmt/core.h>
+#include <fmt/ostream.h>
+
+#include <algorithm>
+#include <ostream>
+
 #include "common.h"
 
 namespace gbc {
@@ -56,6 +62,77 @@ class Registers {
  private:
   word af, bc, de, hl, sp, pc;
 };
+
+class R16 {
+ public:
+  R16() = default;
+  ~R16() = default;
+
+  R16(word value) {
+    upper = (value & 0xff00) >> 8;
+    lower = (value & 0x00ff);
+  }
+
+  R16(byte upper, byte lower) : upper(upper), lower(lower) {}
+
+  // getters
+  auto lo() -> byte& { return lower; }
+
+  auto up() -> byte& { return upper; }
+
+  // prefix increment
+  auto operator++() -> R16& {
+    this->lower++;
+    if (this->lower == 0x00) {
+      this->upper++;
+    }
+
+    return *this;
+  }
+
+  // postfix increment
+  auto operator++(int) -> R16 {
+    auto old = *this;
+    operator++();
+    return old;
+  }
+
+  // prefix decrement
+  auto operator--() -> R16& {
+    this->lower--;
+    if (this->lower == 0xff) {
+      this->upper--;
+    }
+
+    return *this;
+  }
+
+  // postfix decrement
+  auto operator--(int) -> R16 {
+    auto old = *this;
+    operator--();
+    return old;
+  }
+
+  // implicit casting
+  operator word() const { return (upper << 8) | lower; }
+
+  // addition operator
+  friend auto operator+(R16 lhs, R16& rhs) -> R16 {
+    return word(lhs) + word(rhs);
+  }
+
+  friend auto operator<<(std::ostream& os, const R16& out) -> std::ostream& {
+    return os << fmt::format("{:02x}{:02x}", out.upper, out.lower);
+  }
+
+ private:
+  byte upper, lower;
+};
+
 }  // namespace gbc
+
+template <>
+struct fmt::formatter<gbc::R16> : ostream_formatter {};
 
 #endif

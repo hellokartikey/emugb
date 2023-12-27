@@ -10,6 +10,8 @@ namespace gbc {
 using word = std::uint16_t;
 using byte = std::uint8_t;
 
+using cycles = std::uint64_t;
+
 template <std::size_t size>
 using memory_block = std::array<byte, size + 1>;
 }  // namespace gbc
