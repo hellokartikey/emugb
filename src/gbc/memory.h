@@ -1,7 +1,7 @@
 #ifndef EMUGB_MEMORY_H
 #define EMUGB_MEMORY_H
 
-#include <hk/signals.h>
+#include <hk/signal.h>
 
 #include "common.h"
 

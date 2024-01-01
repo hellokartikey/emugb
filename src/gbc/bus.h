@@ -1,7 +1,7 @@
 #ifndef EMUGB_BUS_H
 #define EMUGB_BUS_H
 
-#include <hk/signals.h>
+#include <hk/signal.h>
 
 #include "common.h"
 

@@ -1,7 +1,7 @@
 #ifndef EMUGB_CPU_H
 #define EMUGB_CPU_H
 
-#include <hk/signals.h>
+#include <hk/signal.h>
 
 #include "common.h"
 #include "registers.h"
