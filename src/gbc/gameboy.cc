@@ -19,10 +19,13 @@ Gameboy::~Gameboy() {}
 auto Gameboy::init() -> void {}
 
 auto Gameboy::test() -> void {
-  auto reg = R16{0x1000};
+  auto reg = R16{0x0100};
 
-  auto b = word{reg};
+  reg[0] = true;
+  reg[2] = true;
 
-  fmt::print("reg = {}\n", b);
+  reg[8] = false;
+
+  fmt::print("reg = {}\n", reg[0]);
 }
 }  // namespace gbc

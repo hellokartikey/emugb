@@ -1,7 +1,14 @@
 #include "cpu.h"
 
 namespace gbc {
-CPU::CPU() {}
+CPU::CPU()
+    : A(AF.up()),
+      B(BC.up()),
+      C(BC.lo()),
+      D(DE.up()),
+      E(DE.lo()),
+      H(HL.up()),
+      L(HL.lo()) {}
 
 CPU::~CPU() {}
 
@@ -20,8 +27,8 @@ auto CPU::write(word addr, byte data) -> void {
 auto CPU::cycle() -> void { clocks++; }
 
 auto CPU::fetch() -> byte {
-  auto opcode = read(regs.PC());
-  regs.PC(regs.PC() + 1);
+  auto opcode = read(PC);
+  PC++;
 
   return opcode;
 }
