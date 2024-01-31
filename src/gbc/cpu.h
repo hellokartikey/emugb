@@ -50,6 +50,7 @@ class CPU {
 
  private:  // Members
   R16 AF, BC, DE, HL, SP, PC;
+
   byte& A;
   byte& B;
   byte& C;
@@ -57,6 +58,11 @@ class CPU {
   byte& E;
   byte& H;
   byte& L;
+
+  R16::bit&& z;
+  R16::bit&& n;
+  R16::bit&& h;
+  R16::bit&& c;
 
   byte data_bus;
   word addr_bus;

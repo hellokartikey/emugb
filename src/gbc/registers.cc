@@ -3,7 +3,7 @@
 namespace gbc {
 R16::BitAccess::BitAccess(byte& r8, std::size_t idx) : r8(r8), idx(idx) {}
 
-auto R16::BitAccess::operator=(bool value) -> reference& {
+auto R16::BitAccess::operator=(bool value) -> bit& {
   if (value == true) {
     r8 |= (1 << idx);
   } else {

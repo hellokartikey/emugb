@@ -27,7 +27,7 @@ class R16 {
     std::size_t idx;
   };
 
-  using reference = BitAccess;
+  using bit = BitAccess;
 
  public:
   R16() = default;
@@ -43,8 +43,10 @@ class R16 {
   auto operator++(int) -> R16;  // postfix increment
   auto operator--() -> R16&;    // prefix decrement
   auto operator--(int) -> R16;  // postfix decrement
+
   auto operator[](std::size_t idx) const -> bool;
-  auto operator[](std::size_t idx) -> reference;
+  auto operator[](std::size_t idx) -> bit;
+
   friend auto operator+(R16 lhs, R16& rhs) -> R16;  // addition operator
   operator word() const;                            // implicit casting
 

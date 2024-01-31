@@ -8,7 +8,11 @@ CPU::CPU()
       D(DE.up()),
       E(DE.lo()),
       H(HL.up()),
-      L(HL.lo()) {}
+      L(HL.lo()),
+      z(AF[7]),
+      n(AF[6]),
+      h(AF[5]),
+      c(AF[4]) {}
 
 CPU::~CPU() {}
 
@@ -23,6 +27,10 @@ auto CPU::write(word addr, byte data) -> void {
   write_addr_to_bus(addr);
   write_data_to_bus(data);
 }
+
+auto CPU::read16(word addr) -> word {}
+
+auto CPU::write16(word addr, word data) -> void {}
 
 auto CPU::cycle() -> void { clocks++; }
 
